@@ -1,0 +1,226 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{C4F3049B-FC03-4A49-A2E0-F9DA6D596E2B}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>XsPub.Library.Tests</RootNamespace>
+    <AssemblyName>XsPub.Library.Tests</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <UpgradeBackupLocation />
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <TargetFrameworkProfile />
+    <CodeContractsAssemblyMode>1</CodeContractsAssemblyMode>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeContractsEnableRuntimeChecking>True</CodeContractsEnableRuntimeChecking>
+    <CodeContractsCustomRewriterAssembly>
+    </CodeContractsCustomRewriterAssembly>
+    <CodeContractsCustomRewriterClass>
+    </CodeContractsCustomRewriterClass>
+    <CodeContractsRuntimeCheckingLevel>Full</CodeContractsRuntimeCheckingLevel>
+    <CodeContractsRuntimeOnlyPublicSurface>False</CodeContractsRuntimeOnlyPublicSurface>
+    <CodeContractsRuntimeThrowOnFailure>True</CodeContractsRuntimeThrowOnFailure>
+    <CodeContractsRuntimeCallSiteRequires>False</CodeContractsRuntimeCallSiteRequires>
+    <CodeContractsRunCodeAnalysis>False</CodeContractsRunCodeAnalysis>
+    <CodeContractsBuildReferenceAssembly>False</CodeContractsBuildReferenceAssembly>
+    <CodeContractsNonNullObligations>False</CodeContractsNonNullObligations>
+    <CodeContractsBoundsObligations>False</CodeContractsBoundsObligations>
+    <CodeContractsArithmeticObligations>False</CodeContractsArithmeticObligations>
+    <CodeContractsLibPaths>
+    </CodeContractsLibPaths>
+    <CodeContractsPlatformPath>
+    </CodeContractsPlatformPath>
+    <CodeContractsExtraAnalysisOptions>
+    </CodeContractsExtraAnalysisOptions>
+    <CodeContractsBaseLineFile>
+    </CodeContractsBaseLineFile>
+    <CodeContractsUseBaseLine>False</CodeContractsUseBaseLine>
+    <CodeContractsRunInBackground>True</CodeContractsRunInBackground>
+    <CodeContractsShowSquigglies>False</CodeContractsShowSquigglies>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
+    <CodeContractsRuntimeSkipQuantifiers>False</CodeContractsRuntimeSkipQuantifiers>
+    <CodeContractsEnumObligations>False</CodeContractsEnumObligations>
+    <CodeContractsRedundantAssumptions>False</CodeContractsRedundantAssumptions>
+    <CodeContractsInferRequires>False</CodeContractsInferRequires>
+    <CodeContractsInferEnsures>False</CodeContractsInferEnsures>
+    <CodeContractsInferObjectInvariants>False</CodeContractsInferObjectInvariants>
+    <CodeContractsSuggestAssumptions>False</CodeContractsSuggestAssumptions>
+    <CodeContractsSuggestRequires>True</CodeContractsSuggestRequires>
+    <CodeContractsSuggestEnsures>False</CodeContractsSuggestEnsures>
+    <CodeContractsSuggestObjectInvariants>False</CodeContractsSuggestObjectInvariants>
+    <CodeContractsDisjunctiveRequires>False</CodeContractsDisjunctiveRequires>
+    <CodeContractsEmitXMLDocs>False</CodeContractsEmitXMLDocs>
+    <CodeContractsExtraRewriteOptions />
+    <CodeContractsCacheAnalysisResults>False</CodeContractsCacheAnalysisResults>
+    <CodeContractsReferenceAssembly>%28none%29</CodeContractsReferenceAssembly>
+    <CodeContractsAnalysisWarningLevel>0</CodeContractsAnalysisWarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="nunit.framework">
+      <HintPath>..\packages\NUnit.2.6.0.12054\lib\nunit.framework.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.ComponentModel.Composition.Registration" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Reflection.Context" />
+    <Reference Include="System.Runtime.Caching" />
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Collections\ConcurrentWeakRefDictionaryFixture.cs" />
+    <Compile Include="Xml\Schema\Constraints\ActualHas.cs" />
+    <Compile Include="Xml\Schema\Constraints\XAttributeConstraint.cs" />
+    <Compile Include="Xml\Schema\Constraints\ConstraintExtensions.cs" />
+    <Compile Include="Xml\Schema\Constraints\NameConstraint.cs" />
+    <Compile Include="Xml\Schema\Constraints\XNodeConstraint.cs" />
+    <Compile Include="Xml\Schema\Constraints\AllConstraint.cs" />
+    <Compile Include="Xml\Schema\Constraints\AnnotatedConstraint.cs" />
+    <Compile Include="Xml\Schema\Constraints\AnnotationConstraint.cs" />
+    <Compile Include="Xml\Schema\Constraints\AnyAttributeConstraint.cs" />
+    <Compile Include="Xml\Schema\Constraints\AnyConstraint.cs" />
+    <Compile Include="Xml\Schema\Constraints\AppInfoConstraint.cs" />
+    <Compile Include="Xml\Schema\Constraints\AttributeConstraint.cs" />
+    <Compile Include="Xml\Schema\Constraints\AttributeGroupConstraint.cs" />
+    <Compile Include="Xml\Schema\Constraints\AttributeGroupRefConstraint.cs" />
+    <Compile Include="Xml\Schema\Constraints\ChoiceConstraint.cs" />
+    <Compile Include="Xml\Schema\Constraints\ComplexContentConstraint.cs" />
+    <Compile Include="Xml\Schema\Constraints\ComplexContentExtensionConstraint.cs" />
+    <Compile Include="Xml\Schema\Constraints\ComplexContentRestrictionConstraint.cs" />
+    <Compile Include="Xml\Schema\Constraints\ComplexTypeConstraint.cs" />
+    <Compile Include="Xml\Schema\Constraints\SchemaConstraint.cs" />
+    <Compile Include="Xml\Schema\Constraints\ContentConstraint.cs" />
+    <Compile Include="Xml\Schema\Constraints\ContentModelConstraint.cs" />
+    <Compile Include="Xml\Schema\Constraints\DocumentationConstraint.cs" />
+    <Compile Include="Xml\Schema\Constraints\ElementConstraint.cs" />
+    <Compile Include="Xml\Schema\Constraints\ExternalConstraint.cs" />
+    <Compile Include="Xml\Schema\Constraints\FacetConstraint.cs" />
+    <Compile Include="Xml\Schema\Constraints\GroupBaseConstraint.cs" />
+    <Compile Include="Xml\Schema\Constraints\GroupConstraint.cs" />
+    <Compile Include="Xml\Schema\Constraints\GroupRefConstraint.cs" />
+    <Compile Include="Xml\Schema\Constraints\ImportConstraint.cs" />
+    <Compile Include="Xml\Schema\Constraints\IncludeConstraint.cs" />
+    <Compile Include="Xml\Schema\Constraints\NotationConstraint.cs" />
+    <Compile Include="Xml\Schema\Constraints\SchemaObjectConstraint.cs" />
+    <Compile Include="Xml\Schema\Constraints\ParticleConstraint.cs" />
+    <Compile Include="Xml\Schema\Constraints\RedefineConstraint.cs" />
+    <Compile Include="Xml\Schema\Constraints\SequenceConstraint.cs" />
+    <Compile Include="Xml\Schema\Constraints\SimpleContentConstraint.cs" />
+    <Compile Include="Xml\Schema\Constraints\SimpleContentExtensionConstraint.cs" />
+    <Compile Include="Xml\Schema\Constraints\SimpleContentRestrictionConstraint.cs" />
+    <Compile Include="Xml\Schema\Constraints\SimpleTypeConstraint.cs" />
+    <Compile Include="Xml\Schema\Constraints\SimpleTypeContentConstraint.cs" />
+    <Compile Include="Xml\Schema\Constraints\SimpleTypeListConstraint.cs" />
+    <Compile Include="Xml\Schema\Constraints\SimpleTypeRestrictionConstraint.cs" />
+    <Compile Include="Xml\Schema\Constraints\SimpleTypeUnionConstraint.cs" />
+    <Compile Include="Xml\Schema\Constraints\TypeConstraint.cs" />
+    <Compile Include="Xml\Schema\XSchemaElementFixture.cs" />
+    <Compile Include="Xml\Schema\XSchemaFixture.cs" />
+    <Compile Include="Xml\Schema\SchemaObjectFixture.cs" />
+    <Compile Include="XNodeExtensionFixture.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\XsPub.Library\XsPub.Library.csproj">
+      <Project>{6716552A-4D4C-4EA9-89EB-F6F58F9CEA28}</Project>
+      <Name>XsPub.Library</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+    <None Include="TestData\BitOfEverything.xsd">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\Importer.xsd">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\Includer.xsd">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\TurkSchema.xsd">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\Minimal.xsd">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,0 +1,92 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{3B2E1157-E544-431E-AC20-B7B8934FFE6F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Source", "Source", "{34A28C89-1A3E-4F9F-8015-2CA1CF5EE0FE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XsPub.Library", "XsPub.Library\XsPub.Library.csproj", "{6716552A-4D4C-4EA9-89EB-F6F58F9CEA28}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XsPub.Library.Tests", "XsPub.Library.Tests\XsPub.Library.Tests.csproj", "{C4F3049B-FC03-4A49-A2E0-F9DA6D596E2B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xsp", "Xsp\Xsp.csproj", "{1470B952-793D-4CBE-A1C4-853CD6B054CC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XsPub", "XsPub\XsPub.csproj", "{01C8F2AE-AE2F-48DC-963B-27A4C84C771A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XsPub.Runtime", "XsPub.Runtime\XsPub.Runtime.csproj", "{9301DBFC-4D2D-44EE-B11F-7590E75D50BE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XsPub.Runtime.Tests", "XsPub.Runtime.Tests\XsPub.Runtime.Tests.csproj", "{F90D24DD-E906-4D80-92ED-DBB38C6248D6}"
+EndProject
+Global
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccLocalPath0 = .
+		SccLocalPath1 = Xsp
+		SccLocalPath2 = XsPub.Library.Tests
+		SccLocalPath3 = XsPub.Library
+		SccLocalPath4 = XsPub.Runtime.Tests
+		SccLocalPath5 = XsPub.Runtime
+		SccLocalPath6 = XsPub
+		SccNumberOfProjects = 7
+		SccProjectName1 = Xsp
+		SccProjectName2 = XsPub.Library.Tests
+		SccProjectName3 = XsPub.Library
+		SccProjectName4 = XsPub.Runtime.Tests
+		SccProjectName5 = XsPub.Runtime
+		SccProjectName6 = XsPub
+		SccProjectTopLevelParentUniqueName1 = XsPub.sln
+		SccProjectTopLevelParentUniqueName2 = XsPub.sln
+		SccProjectTopLevelParentUniqueName3 = XsPub.sln
+		SccProjectTopLevelParentUniqueName4 = XsPub.sln
+		SccProjectTopLevelParentUniqueName5 = XsPub.sln
+		SccProjectTopLevelParentUniqueName6 = XsPub.sln
+		SccProjectUniqueName1 = Xsp\\Xsp.csproj
+		SccProjectUniqueName2 = XsPub.Library.Tests\\XsPub.Library.Tests.csproj
+		SccProjectUniqueName3 = XsPub.Library\\XsPub.Library.csproj
+		SccProjectUniqueName4 = XsPub.Runtime.Tests\\XsPub.Runtime.Tests.csproj
+		SccProjectUniqueName5 = XsPub.Runtime\\XsPub.Runtime.csproj
+		SccProjectUniqueName6 = XsPub\\XsPub.csproj
+		SccTeamFoundationServer = https://tfs.codeplex.com/tfs/tfs04
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{01C8F2AE-AE2F-48DC-963B-27A4C84C771A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{01C8F2AE-AE2F-48DC-963B-27A4C84C771A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{01C8F2AE-AE2F-48DC-963B-27A4C84C771A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{01C8F2AE-AE2F-48DC-963B-27A4C84C771A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1470B952-793D-4CBE-A1C4-853CD6B054CC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1470B952-793D-4CBE-A1C4-853CD6B054CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1470B952-793D-4CBE-A1C4-853CD6B054CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1470B952-793D-4CBE-A1C4-853CD6B054CC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6716552A-4D4C-4EA9-89EB-F6F58F9CEA28}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6716552A-4D4C-4EA9-89EB-F6F58F9CEA28}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6716552A-4D4C-4EA9-89EB-F6F58F9CEA28}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6716552A-4D4C-4EA9-89EB-F6F58F9CEA28}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9301DBFC-4D2D-44EE-B11F-7590E75D50BE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9301DBFC-4D2D-44EE-B11F-7590E75D50BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9301DBFC-4D2D-44EE-B11F-7590E75D50BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9301DBFC-4D2D-44EE-B11F-7590E75D50BE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C4F3049B-FC03-4A49-A2E0-F9DA6D596E2B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C4F3049B-FC03-4A49-A2E0-F9DA6D596E2B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C4F3049B-FC03-4A49-A2E0-F9DA6D596E2B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C4F3049B-FC03-4A49-A2E0-F9DA6D596E2B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F90D24DD-E906-4D80-92ED-DBB38C6248D6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F90D24DD-E906-4D80-92ED-DBB38C6248D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F90D24DD-E906-4D80-92ED-DBB38C6248D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F90D24DD-E906-4D80-92ED-DBB38C6248D6}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{01C8F2AE-AE2F-48DC-963B-27A4C84C771A} = {34A28C89-1A3E-4F9F-8015-2CA1CF5EE0FE}
+		{1470B952-793D-4CBE-A1C4-853CD6B054CC} = {34A28C89-1A3E-4F9F-8015-2CA1CF5EE0FE}
+		{6716552A-4D4C-4EA9-89EB-F6F58F9CEA28} = {34A28C89-1A3E-4F9F-8015-2CA1CF5EE0FE}
+		{9301DBFC-4D2D-44EE-B11F-7590E75D50BE} = {34A28C89-1A3E-4F9F-8015-2CA1CF5EE0FE}
+		{C4F3049B-FC03-4A49-A2E0-F9DA6D596E2B} = {3B2E1157-E544-431E-AC20-B7B8934FFE6F}
+		{F90D24DD-E906-4D80-92ED-DBB38C6248D6} = {3B2E1157-E544-431E-AC20-B7B8934FFE6F}
+	EndGlobalSection
+EndGlobal
