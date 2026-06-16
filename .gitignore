@@ -1,0 +1,19 @@
+# Build output
+[Bb]in/
+[Oo]bj/
+[Tt]est[Rr]esult*/
+
+# Visual Studio
+.vs/
+*.user
+*.suo
+*.sdf
+*.opensdf
+*.userprefs
+
+# NuGet (packages committed pre-restore era)
+# packages/
+
+# ReSharper
+_ReSharper*/
+*.DotSettings.user
