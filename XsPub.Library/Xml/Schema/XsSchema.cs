@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -14,14 +15,12 @@ namespace XsPub.Library.Xml.Schema
     {
         public XsSchema() : base(new XElement(Xs.Schema))
         {
-            XmlResolver = new XmlUrlResolver();
             resetInits();
         }
 
         protected XsSchema(XElement element) : base(element)
         {
             if (element.Name != Xs.Schema) throw new ArgumentException($"Expected {nameof(Xs.Schema)}, got {element.Name}.", nameof(element));
-            XmlResolver = new XmlUrlResolver();
             resetInits();
         }
 
@@ -47,9 +46,12 @@ namespace XsPub.Library.Xml.Schema
             return XsObjectFactory.Create<XsSchema>(schemaElement, element => new XsSchema(element));
         }
 
-        public static XsSchema Load(string schemaPath)
+        public static XsSchema Load(string schemaPath, XmlResolver? resolver = null)
         {
-            return Load(XDocument.Load(schemaPath, LoadOptions.SetBaseUri | LoadOptions.SetLineInfo | LoadOptions.PreserveWhitespace).Root);
+            var schema = Load(XDocument.Load(schemaPath, LoadOptions.SetBaseUri | LoadOptions.SetLineInfo | LoadOptions.PreserveWhitespace).Root);
+            schema.XmlResolver = resolver
+                ?? new LocalOnlyXmlResolver(Path.GetDirectoryName(Path.GetFullPath(schemaPath))!);
+            return schema;
         }
 
         public static XsSchema Load(XmlReader reader)

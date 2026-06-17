@@ -14,7 +14,11 @@ var runtime = provider.GetRequiredService<PublishingRuntime>();
 
 try
 {
-    var parser = new ArgumentParser(args);
+    // Strip --allow-external before positional argument parsing.
+    bool allowExternalResources = args.Contains("--allow-external");
+    var filteredArgs = args.Where(a => a != "--allow-external").ToArray();
+
+    var parser = new ArgumentParser(filteredArgs);
     parser.Parse();
 
     var defaultSettings = runtime.CreateDefaultSettings();
@@ -34,7 +38,8 @@ try
         }
     }
 
-    runtime.Publish(parser.InputFile, parser.OutputPath, defaultSettings);
+    runtime.Publish(parser.InputFile, parser.OutputPath, defaultSettings,
+                    allowExternalResources: allowExternalResources);
 }
 catch (ArgumentParseException e)
 {

@@ -41,30 +41,42 @@ namespace XsPub.Runtime
         /// <param name="outputPath">
         /// The path of a folder where output files are written.
         /// </param>
-        public void Publish(string schemaFilePath, string outputPath, RuntimeSettingSet settingSets = null)
+        /// <param name="allowExternalResources">
+        /// When false (the default), xs:import and xs:include are restricted to local files
+        /// within the same directory tree as the input file.  Set to true only for fully
+        /// trusted input that legitimately references remote schemas or absolute file paths.
+        /// </param>
+        public void Publish(string schemaFilePath, string outputPath,
+                            RuntimeSettingSet? settingSets = null,
+                            bool allowExternalResources = false)
         {
             ArgumentNullException.ThrowIfNull(schemaFilePath);
             ArgumentNullException.ThrowIfNull(outputPath);
             ArgumentException.ThrowIfNullOrEmpty(schemaFilePath);
 
-            if (settingSets == null)
-                settingSets = CreateDefaultSettings();
+            settingSets ??= CreateDefaultSettings();
 
-            var document = XDocument.Load(schemaFilePath, LoadOptions.PreserveWhitespace | LoadOptions.SetBaseUri | LoadOptions.SetLineInfo);
+            var fullInputPath = Path.GetFullPath(schemaFilePath);
+            XmlResolver resolver = allowExternalResources
+                ? new XmlUrlResolver()
+                : new LocalOnlyXmlResolver(Path.GetDirectoryName(fullInputPath)!);
+
+            var document = XDocument.Load(fullInputPath, LoadOptions.PreserveWhitespace | LoadOptions.SetBaseUri | LoadOptions.SetLineInfo);
 
             if (!Directory.Exists(outputPath))
                 Directory.CreateDirectory(outputPath);
 
-            if (document.Root.Name == Xs.Schema)
-                publishSchema(document.Root, outputPath, false, settingSets);
+            if (document.Root!.Name == Xs.Schema)
+                publishSchema(document.Root, outputPath, false, settingSets, resolver);
             else if (document.Root.Name == Wsdl.Definitions)
-                publishWsdl(schemaFilePath, outputPath, document, settingSets);
+                publishWsdl(fullInputPath, outputPath, document, settingSets, resolver);
             else
                 throw new InvalidOperationException(
                     "Input file was neither WSDL or XSD.  xs:schema or wsdl:definitions element not found.");
         }
 
-        private void publishWsdl(string schemaFilePath, string outputPath, XDocument wsdlDocument, RuntimeSettingSet settings)
+        private void publishWsdl(string schemaFilePath, string outputPath, XDocument wsdlDocument,
+                                  RuntimeSettingSet settings, XmlResolver resolver)
         {
             ArgumentNullException.ThrowIfNull(schemaFilePath);
             ArgumentNullException.ThrowIfNull(outputPath);
@@ -75,27 +87,26 @@ namespace XsPub.Runtime
             copyPrefixes(schemas, wsdlDocument);
 
             foreach (var schema in schemas.ToList())
-                publishSchema(schema, outputPath, true, settings);
+                publishSchema(schema, outputPath, true, settings, resolver);
 
-            // Copy WSDL to output directory
             Directory.CreateDirectory(outputPath);
             SaveDocument(wsdlDocument, Path.Combine(outputPath, Path.GetFileName(schemaFilePath)));
         }
 
-        private void publishSchema(XElement schemaRoot, string outputPath, bool isEmbeddedInWsdl, RuntimeSettingSet settings)
+        private void publishSchema(XElement schemaRoot, string outputPath, bool isEmbeddedInWsdl,
+                                    RuntimeSettingSet settings, XmlResolver resolver)
         {
             ArgumentNullException.ThrowIfNull(schemaRoot);
             ArgumentNullException.ThrowIfNull(settings);
 
             var schema = XsSchema.Load(schemaRoot);
+            schema.XmlResolver = resolver;
             var transformations = TransformationFactories.SelectMany(factory => factory.CreateTransformations(settings)).ToList();
             var operation = new PublishOperation(this, schema, outputPath, isEmbeddedInWsdl, transformations);
             operation.Publish();
 
             if (isEmbeddedInWsdl)
-            {
                 schemaRoot.ReplaceWith(schema.Element);
-            }
         }
 
         private void copyPrefixes(IEnumerable<XElement> schemaElements, XDocument wsdlDocument)

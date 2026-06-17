@@ -39,22 +39,27 @@ namespace XsPub.Library.Xml.Schema
         private XsSchema getReferencedSchema()
         {
             var enclosingSchema = GetSchema();
-            var resolver = enclosingSchema.GetXmlResolver();
+            var resolver = enclosingSchema.GetXmlResolver()
+                ?? throw new InvalidOperationException(
+                    $"No XmlResolver configured on the enclosing schema. Cannot resolve external reference '{SchemaLocation}'.");
             var baseUriString = enclosingSchema.Element.BaseUri;
             var fullUri = resolver.ResolveUri(string.IsNullOrEmpty(baseUriString) ? null : new Uri(baseUriString), SchemaLocation);
             using (var stream = resolver.GetEntity(fullUri, null, null) as Stream)
             {
-                if (stream == null) throw new InvalidOperationException("Could not load external schema.");
+                if (stream == null) throw new InvalidOperationException($"Could not open stream for external schema '{fullUri}'.");
 
                 var readerSettings = new XmlReaderSettings
-                                         {
-                                             MaxCharactersInDocument = 0x03FFFFFF,// 64 Megabytes
-                                             XmlResolver = resolver
-                                         };
+                {
+                    MaxCharactersInDocument = 0x03FFFFFF, // 64 MB
+                    XmlResolver = resolver
+                };
 
                 using (var reader = XmlReader.Create(stream, readerSettings, fullUri.ToString()))
                 {
-                    return XsSchema.Load(reader);
+                    var childSchema = XsSchema.Load(reader);
+                    // Propagate the resolver so grandchild xs:import/xs:include are subject to the same policy.
+                    childSchema.XmlResolver = resolver;
+                    return childSchema;
                 }
             }
         }

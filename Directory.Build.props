@@ -1,0 +1,8 @@
+<Project>
+  <PropertyGroup>
+    <!-- Suppress SourceLink git metadata queries; .gitmodules is a device stub in this environment -->
+    <EnableSourceControlManagerQueries>false</EnableSourceControlManagerQueries>
+    <!-- NuGet vulnerability audit cache is on a read-only path in this environment -->
+    <NuGetAudit>false</NuGetAudit>
+  </PropertyGroup>
+</Project>
