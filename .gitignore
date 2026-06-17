@@ -1,0 +1,15 @@
+# Build output
+[Bb]in/
+[Oo]bj/
+[Tt]est[Rr]esult*/
+
+# Visual Studio / Rider
+.vs/
+.idea/
+*.user
+*.suo
+*.sdf
+*.opensdf
+
+# NuGet
+*.nupkg
