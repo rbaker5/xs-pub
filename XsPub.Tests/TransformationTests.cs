@@ -1,4 +1,5 @@
 using Microsoft.Extensions.DependencyInjection;
+using System.Text.RegularExpressions;
 using Xunit;
 using XsPub.Library.Xml.Schema;
 using XsPub.Runtime;
@@ -26,18 +27,11 @@ public class TransformationTests : IDisposable
 
     public void Dispose() => Directory.Delete(_outputDir, recursive: true);
 
-    [Fact]
-    public void AllToSequence_ReplacesAllWithSequence()
-    {
-        var schema = XsSchema.Load(TestFile("Minimal.xsd"));
-        var settings = _runtime.CreateDefaultSettings();
-        settings.AddRange(_runtime.TransformationFactories
-            .Where(f => f.Name == "AllToSequence")
-            .Select(f => f.GetDefaultSettings()));
+    // ── Factory registration ───────────────────────────────────────────────
 
-        var before = schema.Descendents.OfType<XsAll>().Count();
-        // Minimal.xsd has no xs:all — use a synthesised schema element instead
-        // so test the transformation pipeline contract: the factory produces transformations
+    [Fact]
+    public void AllToSequence_FactoryRegistered()
+    {
         Assert.Contains(_runtime.TransformationFactories, f => f.Name == "AllToSequence");
     }
 
@@ -53,21 +47,74 @@ public class TransformationTests : IDisposable
         Assert.Contains(_runtime.TransformationFactories, f => f.Name == "ExplicitForms");
     }
 
+    // ── AllToSequence transformation ───────────────────────────────────────
+
     [Fact]
-    public void Publish_MinimalXsd_WritesOutputFile()
+    public void Publish_WithAllToSequence_ReplacesAllWithSequence()
     {
-        _runtime.Publish(TestFile("Minimal.xsd"), _outputDir);
-        var output = Directory.GetFiles(_outputDir, "*.xsd");
-        Assert.Single(output);
+        var settings = _runtime.CreateDefaultSettings();
+        settings.AddRange(_runtime.TransformationFactories
+            .Where(f => f.Name == "AllToSequence")
+            .Select(f => f.GetDefaultSettings()));
+
+        _runtime.Publish(TestFile("WithAll.xsd"), _outputDir, settings);
+
+        var content = File.ReadAllText(Directory.GetFiles(_outputDir, "*.xsd").Single());
+        Assert.DoesNotContain("<xs:all>", content);
+        Assert.Contains("xs:sequence", content);
+    }
+
+    // ── Null-guard ────────────────────────────────────────────────────────
+
+    [Fact]
+    public void PublishingRuntime_ThrowsOnNullInput()
+    {
+        Assert.Throws<ArgumentNullException>(() => _runtime.Publish(null!, _outputDir));
+    }
+
+    // ── Golden-file comparison: XSD ───────────────────────────────────────
+
+    [Fact]
+    public void Publish_BitOfEverythingXsd_DefaultSettings_MatchesGolden()
+    {
+        _runtime.Publish(TestFile("BitOfEverything.xsd"), _outputDir);
+        AssertMatchesGolden("Expected", "BitOfEverything.xsd");
     }
 
     [Fact]
-    public void Publish_BitOfEverythingXsd_WritesOutputFile()
+    public void Publish_BitOfEverythingXsd_WithInlineGroups_MatchesGolden()
     {
-        _runtime.Publish(TestFile("BitOfEverything.xsd"), _outputDir);
-        var output = Directory.GetFiles(_outputDir, "*.xsd");
-        Assert.Single(output);
+        var settings = _runtime.CreateDefaultSettings();
+        settings.AddRange(_runtime.TransformationFactories
+            .Where(f => f.Name == "InlineGroups")
+            .Select(f => f.GetDefaultSettings()));
+
+        _runtime.Publish(TestFile("BitOfEverything.xsd"), _outputDir, settings);
+        AssertMatchesGolden("ExpectedInlineGroups", "BitOfEverything.xsd");
     }
+
+    // ── Golden-file comparison: WSDL ──────────────────────────────────────
+
+    [Fact]
+    public void Publish_AwsMturkWsdl_DefaultSettings_MatchesGolden()
+    {
+        _runtime.Publish(TestFile("AWSMechanicalTurkRequester.wsdl"), _outputDir);
+        AssertMatchesGolden("Expected", "AWSMechanicalTurkRequester.wsdl");
+    }
+
+    [Fact]
+    public void Publish_AwsMturkWsdl_WithInlineGroups_MatchesGolden()
+    {
+        var settings = _runtime.CreateDefaultSettings();
+        settings.AddRange(_runtime.TransformationFactories
+            .Where(f => f.Name == "InlineGroups")
+            .Select(f => f.GetDefaultSettings()));
+
+        _runtime.Publish(TestFile("AWSMechanicalTurkRequester.wsdl"), _outputDir, settings);
+        AssertMatchesGolden("ExpectedInlineGroups", "AWSMechanicalTurkRequester.wsdl");
+    }
+
+    // ── Content-assertion tests ───────────────────────────────────────────
 
     [Fact]
     public void Publish_WithExplicitForms_OutputContainsFormDefaults()
@@ -98,10 +145,52 @@ public class TransformationTests : IDisposable
         Assert.DoesNotContain("<xs:group ref=", content);
     }
 
+    // ── xs:import / xs:include integration ───────────────────────────────
+
     [Fact]
-    public void PublishingRuntime_ThrowsOnNullInput()
+    public void Publish_ImporterXsd_ResolvesLocalImport()
     {
-        Assert.Throws<ArgumentNullException>(() => _runtime.Publish(null!, _outputDir));
+        _runtime.Publish(TestFile("Importer.xsd"), _outputDir);
+        Assert.True(Directory.GetFiles(_outputDir, "*.xsd").Length > 0);
+    }
+
+    [Fact]
+    public void Publish_IncluderXsd_ResolvesLocalInclude()
+    {
+        _runtime.Publish(TestFile("Includer.xsd"), _outputDir);
+        Assert.True(Directory.GetFiles(_outputDir, "*.xsd").Length > 0);
+    }
+
+    // ── Helpers ───────────────────────────────────────────────────────────
+
+    private void AssertMatchesGolden(string goldenSubDir, string fileName)
+    {
+        var goldenPath = TestFile(Path.Combine(goldenSubDir, fileName));
+        var actualPath = Path.Combine(_outputDir, fileName);
+
+        Assert.True(File.Exists(actualPath), $"Publish did not write output file '{fileName}'.");
+
+        var expected = NormalizeForComparison(File.ReadAllText(goldenPath));
+        var actual = NormalizeForComparison(File.ReadAllText(actualPath));
+
+        Assert.Equal(expected, actual);
+    }
+
+    // Normalizations that reconcile .NET 4.0 golden files with .NET 10 XmlWriter output.
+    private static string NormalizeForComparison(string text)
+    {
+        // Strip BOM (golden files from Visual Studio on Windows may have it; XmlWriter on Linux won't)
+        if (text.StartsWith("﻿", StringComparison.Ordinal))
+            text = text[1..];
+        // Normalize line endings so cross-platform comparisons are stable
+        text = text.Replace("\r\n", "\n").Replace("\r", "\n");
+        // XmlWriter always emits ` />` (space before slash); golden files may have `"/>`
+        text = text.Replace("\"/>", "\" />");
+        // XmlWriter never writes trailing space before a wrapped-attribute newline
+        text = Regex.Replace(text, @"(?<=<[^>]*)[ ]*\n(?=[^<]*>)", "\n");
+        // .NET writes the encoding declaration in lower case
+        text = text.Replace("\"UTF-8\"", "\"utf-8\"");
+        return text;
     }
 
     private static string TestFile(string name) =>

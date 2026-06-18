@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!-- Test -->
+<xs:schema  
+    id="Minimal"
+    targetNamespace="http://tempuri.org/Minimal.xsd"
+    elementFormDefault="qualified"
+    attributeFormDefault="unqualified"
+    xmlns="http://tempuri.org/Minimal.xsd"
+    xmlns:mstns="http://tempuri.org/Minimal.xsd"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:annotation>
+    <xs:appinfo>
+      App Info
+    </xs:appinfo>
+    <xs:documentation>
+      Documentation
+    </xs:documentation>
+  </xs:annotation>
+  <xs:attribute fixed="5" name="fixedAttribute" type="xs:anyURI" />
+  <xs:attribute default="5" name="defaultAttribute" type="xs:anyURI" /> 
+  <xs:attribute name="typedAttribute">
+    <xs:simpleType>
+      <xs:list itemType="xs:boolean">
+
+      </xs:list>
+    </xs:simpleType>
+  </xs:attribute>
+  <xs:attributeGroup name="attributeGroup">
+    
+  </xs:attributeGroup>
+  <xs:complexType name="complexType">    
+  </xs:complexType>
+  <xs:complexType name="complexTypeWithAttributeGroupRef">
+    <xs:attributeGroup ref="attributeGroup" />
+  </xs:complexType>
+  <xs:element name="TestElement" type="xs:string" />
+  <xs:group name="groupSequence">
+    <xs:sequence>
+      <xs:element name="partOfGroup" type="xs:string" />
+    </xs:sequence>
+  </xs:group>
+  <xs:complexType name="complexTypeWithGroupRef">
+    <xs:sequence>
+      <xs:element name="partOfGroup" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:notation name="testNotation" public="Something" />
+  <xs:simpleType name="simpleTypeRestriction">
+    <xs:restriction base="xs:string">
+
+    </xs:restriction>
+  </xs:simpleType>
+</xs:schema>

@@ -5,4 +5,10 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <RootNamespace>XsPub.Library</RootNamespace>
   </PropertyGroup>
+
+  <ItemGroup>
+    <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
+      <_Parameter1>XsPub.Tests</_Parameter1>
+    </AssemblyAttribute>
+  </ItemGroup>
 </Project>

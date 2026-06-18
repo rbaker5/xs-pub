@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema
+    targetNamespace="http://tempuri.org/WithAll.xsd"
+    elementFormDefault="qualified"
+    xmlns="http://tempuri.org/WithAll.xsd"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:complexType name="AllType">
+    <xs:all>
+      <xs:element name="Alpha" type="xs:string" minOccurs="0" />
+      <xs:element name="Beta" type="xs:integer" minOccurs="0" />
+    </xs:all>
+  </xs:complexType>
+  <xs:element name="Root" type="AllType" />
+</xs:schema>
