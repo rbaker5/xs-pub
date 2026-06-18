@@ -1,7 +1,7 @@
 <Solution>
-  <Project Path="Xsp/Xsp.csproj" />
-  <Project Path="XsPub.Library/XsPub.Library.csproj" />
-  <Project Path="XsPub.Runtime/XsPub.Runtime.csproj" />
-  <Project Path="XsPub.Library.Tests/XsPub.Library.Tests.csproj" />
-  <Project Path="XsPub.Tests/XsPub.Tests.csproj" />
+  <Project Path="src/Xsp/Xsp.csproj" />
+  <Project Path="src/XsPub.Library/XsPub.Library.csproj" />
+  <Project Path="src/XsPub.Runtime/XsPub.Runtime.csproj" />
+  <Project Path="tests/XsPub.Library.Tests/XsPub.Library.Tests.csproj" />
+  <Project Path="tests/XsPub.Tests/XsPub.Tests.csproj" />
 </Solution>

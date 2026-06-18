@@ -1,15 +1,12 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>net10.0</TargetFramework>
-    <Nullable>enable</Nullable>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <IsPackable>false</IsPackable>
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\XsPub.Library\XsPub.Library.csproj" />
-    <ProjectReference Include="..\..\NUnit.Comparisons\NUnit.Comparisons\NUnit.Comparisons.csproj" />
-    <ProjectReference Include="..\..\NUnit.Comparisons\NUnit.Comparisons.Xml\NUnit.Comparisons.Xml.csproj" />
+    <ProjectReference Include="..\..\src\XsPub.Library\XsPub.Library.csproj" />
+    <ProjectReference Include="..\..\..\NUnit.Comparisons\src\NUnit.Comparisons\NUnit.Comparisons.csproj" />
+    <ProjectReference Include="..\..\..\NUnit.Comparisons\src\NUnit.Comparisons.Xml\NUnit.Comparisons.Xml.csproj" />
   </ItemGroup>
 
   <ItemGroup>
