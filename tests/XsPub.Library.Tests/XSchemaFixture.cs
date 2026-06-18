@@ -1,11 +1,12 @@
 using System.Reflection;
 using System.Xml;
 using System.Xml.Schema;
-using NUnit.Comparisons;
 using NUnit.Comparisons.Xml;
 using NUnit.Framework;
 using XsPub.Library.Tests.Xml.Schema.Constraints;
-using XsPub.Library.Xml.Schema;
+// Alias resolves the ambiguity between NUnit.Comparisons.Is and NUnit.Framework.Is;
+// NUnit.Comparisons.Is inherits all NUnit.Framework.Is members so nothing is lost.
+using Is = NUnit.Comparisons.Is;
 
 namespace XsPub.Library.Tests;
 

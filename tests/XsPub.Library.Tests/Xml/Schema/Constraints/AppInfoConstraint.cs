@@ -10,7 +10,7 @@ public class AppInfoConstraint : SchemaObjectConstraint<XsAppInfo, XmlSchemaAppI
     {
         base.AddCustomConstraints();
         Add(ActualHas.Property("Source").EqualTo(Expected!.Source));
-        Add(ActualHas.Property("Element").Method("Nodes").ComparableTo(Expected.Markup.EmptyIfNull()));
+        Add(ActualHas.Property("Element").Method("Nodes").ComparableTo((IEnumerable<object>)Expected.Markup!.EmptyIfNull()));
     }
 
     public override string? GetActualName(XsAppInfo actual) => null;

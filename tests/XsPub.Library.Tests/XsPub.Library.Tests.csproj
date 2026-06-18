@@ -5,8 +5,15 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\XsPub.Library\XsPub.Library.csproj" />
-    <ProjectReference Include="..\..\..\NUnit.Comparisons\src\NUnit.Comparisons\NUnit.Comparisons.csproj" />
-    <ProjectReference Include="..\..\..\NUnit.Comparisons\src\NUnit.Comparisons.Xml\NUnit.Comparisons.Xml.csproj" />
+    <!-- NUnit.Comparisons referenced as pre-built DLLs: the sibling repo's obj/ is on a
+         read-only filesystem in this environment so project references would trigger rebuild
+         failures.  Switch back to project references once NuGet packages are published. -->
+    <Reference Include="NUnit.Comparisons">
+      <HintPath>..\..\..\NUnit.Comparisons\src\NUnit.Comparisons\bin\Debug\net10.0\NUnit.Comparisons.dll</HintPath>
+    </Reference>
+    <Reference Include="NUnit.Comparisons.Xml">
+      <HintPath>..\..\..\NUnit.Comparisons\src\NUnit.Comparisons.Xml\bin\Debug\net10.0\NUnit.Comparisons.Xml.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
   <ItemGroup>

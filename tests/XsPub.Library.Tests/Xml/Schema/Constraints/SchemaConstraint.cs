@@ -25,7 +25,7 @@ public class SchemaConstraint : SchemaObjectConstraint<XsSchema, XmlSchema>
         Add(ActualHas.Property("Items").ComparableTo(Expected.Items.Cast<XmlSchemaObject>()));
         Add(ActualHas.Property("Notations").ComparableTo(Expected.Notations.Values.Cast<XmlSchemaNotation>()));
         Add(ActualHas.Property("SchemaTypes").ComparableTo(Expected.SchemaTypes.Values.Cast<XmlSchemaType>()));
-        Add(ActualHas.Property("UnhandledAttributes").ComparableTo(Expected.UnhandledAttributes.EmptyIfNull()));
+        Add(ActualHas.Property("UnhandledAttributes").ComparableTo(Expected.UnhandledAttributes!.EmptyIfNull()));
     }
 
     public override string? GetActualName(XsSchema actual) =>

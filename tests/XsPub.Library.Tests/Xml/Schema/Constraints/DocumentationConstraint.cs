@@ -11,7 +11,7 @@ public class DocumentationConstraint : SchemaObjectConstraint<XsDocumentation, X
         base.AddCustomConstraints();
         Add(ActualHas.Property("Language").EqualTo(Expected!.Language));
         Add(ActualHas.Property("Source").EqualTo(Expected.Source));
-        Add(ActualHas.Property("Element").Method("Nodes").ComparableTo(Expected.Markup.EmptyIfNull()));
+        Add(ActualHas.Property("Element").Method("Nodes").ComparableTo((IEnumerable<object>)Expected.Markup!.EmptyIfNull()));
     }
 
     public override string? GetActualName(XsDocumentation actual) => null;

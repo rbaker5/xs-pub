@@ -13,6 +13,6 @@ public abstract class ExternalConstraint<TActual, TExpected> : SchemaObjectConst
         Add(ActualHas.Property("Id").EqualTo(Expected!.Id));
         Add(ActualHas.Property("SchemaLocation").EqualTo(Expected.SchemaLocation));
         Add(ActualHas.Property("Schema").ComparableTo(Expected.Schema));
-        Add(ActualHas.Property("UnhandledAttributes").ComparableTo(Expected.UnhandledAttributes.EmptyIfNull()));
+        Add(ActualHas.Property("UnhandledAttributes").ComparableTo(Expected.UnhandledAttributes!.EmptyIfNull()));
     }
 }

@@ -12,6 +12,6 @@ public abstract class AnnotatedConstraint<TActual, TExpected> : SchemaObjectCons
         base.AddCustomConstraints();
         Add(ActualHas.Property("Id").EqualTo(Expected!.Id));
         Add(ActualHas.Property("Annotation").ComparableTo(Expected.Annotation));
-        Add(ActualHas.Property("UnhandledAttributes").ComparableTo(Expected.UnhandledAttributes.EmptyIfNull()));
+        Add(ActualHas.Property("UnhandledAttributes").ComparableTo(Expected.UnhandledAttributes!.EmptyIfNull()));
     }
 }
