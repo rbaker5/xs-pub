@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="Minimal"
+    targetNamespace="http://tempuri.org/Minimal.xsd"
+    elementFormDefault="qualified"
+    attributeFormDefault="unqualified"
+    xmlns="http://tempuri.org/Minimal.xsd"
+    xmlns:mstns="http://tempuri.org/Minimal.xsd"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="TestElement" type="xs:string"/>
+</xs:schema>

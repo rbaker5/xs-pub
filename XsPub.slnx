@@ -2,5 +2,6 @@
   <Project Path="Xsp/Xsp.csproj" />
   <Project Path="XsPub.Library/XsPub.Library.csproj" />
   <Project Path="XsPub.Runtime/XsPub.Runtime.csproj" />
+  <Project Path="XsPub.Library.Tests/XsPub.Library.Tests.csproj" />
   <Project Path="XsPub.Tests/XsPub.Tests.csproj" />
 </Solution>

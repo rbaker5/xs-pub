@@ -10,5 +10,8 @@
     <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
       <_Parameter1>XsPub.Tests</_Parameter1>
     </AssemblyAttribute>
+    <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
+      <_Parameter1>XsPub.Library.Tests</_Parameter1>
+    </AssemblyAttribute>
   </ItemGroup>
 </Project>

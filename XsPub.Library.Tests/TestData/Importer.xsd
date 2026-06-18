@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema
+  id="Minimal"
+  targetNamespace="http://tempuri.org/Importer.xsd"
+  elementFormDefault="qualified"
+  attributeFormDefault="unqualified"
+  xmlns="http://tempuri.org/Importer.xsd"
+  xmlns:mstns="http://tempuri.org/Importer.xsd"
+  xmlns:bito="http://tempuri.org/Minimal.xsd"
+  xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import namespace="http://tempuri.org/Minimal.xsd" schemaLocation="BitOfEverything.xsd"/>  
+  <xs:complexType name="referer">
+    <xs:sequence>
+      <xs:element ref="bito:TestElement"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>
