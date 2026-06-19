@@ -1,5 +1,10 @@
 # XsPub
 
+[![CI](https://github.com/rbaker5/xs-pub/actions/workflows/ci.yml/badge.svg)](https://github.com/rbaker5/xs-pub/actions/workflows/ci.yml)
+[![CodeQL](https://github.com/rbaker5/xs-pub/actions/workflows/codeql.yml/badge.svg)](https://github.com/rbaker5/xs-pub/actions/workflows/codeql.yml)
+[![Latest release](https://img.shields.io/github/v/release/rbaker5/xs-pub?include_prereleases)](https://github.com/rbaker5/xs-pub/releases/latest)
+[![License](https://img.shields.io/github/license/rbaker5/xs-pub)](LICENSE)
+
 XsPub helps manage XSD schemas and WSDL documents by providing an extensible framework to perform transformations to "publish" a schema.
 
 By publishing a schema you can target different uses, such as documentation or input to code generation.
