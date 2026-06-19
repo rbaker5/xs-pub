@@ -5,20 +5,29 @@ using System.Text;
 
 namespace Xsp
 {
-    class AgumentSetting
+    public class AgumentSetting
     {
         public string TransformationName { get; set; }
         public string SettingName { get; set; }
         public string Value { get; set; }
     }
 
-    class ArgumentParser
+    public class ArgumentParser
     {
         private readonly string[] _args;
         private readonly List<string> _messages = new List<string>();
         private bool _isValid;
 
-        private string Usage = "TODO";
+        private string Usage =
+            "Usage: xsp <input.xsd|input.wsdl> <output-dir> [TransformName.Setting=value ...]" + Environment.NewLine +
+            Environment.NewLine +
+            "  input    XSD schema or WSDL document to publish." + Environment.NewLine +
+            "  output   Directory to write transformed output files into." + Environment.NewLine +
+            Environment.NewLine +
+            "Transformations (activate by passing their settings):" + Environment.NewLine +
+            "  AllToSequence.AllToSequence=true    Replace xs:all with xs:sequence" + Environment.NewLine +
+            "  InlineGroups.InlineGroups=true      Inline xs:group references" + Environment.NewLine +
+            "  ExplicitForms.ExplicitForms=true    Emit explicit form defaults";
         public string CurrentMessage
         {
             get
@@ -55,7 +64,10 @@ namespace Xsp
             {
                 var propertyAndValue = arg.Split('=');
                 if (propertyAndValue.Length != 2)
+                {
                     nonCriticalFailure("Invalid argument, form must be [tranformationName.]settingName=value\n    {0}", arg);
+                    continue;
+                }
 
                 var property = propertyAndValue[0];
                 var propertyNameAndTransformationName = property.Split('.');
