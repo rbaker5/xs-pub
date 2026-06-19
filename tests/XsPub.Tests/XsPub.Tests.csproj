@@ -6,6 +6,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\src\XsPub.Library\XsPub.Library.csproj" />
     <ProjectReference Include="..\..\src\XsPub.Runtime\XsPub.Runtime.csproj" />
+    <ProjectReference Include="..\..\src\Xsp\Xsp.csproj" />
   </ItemGroup>
 
   <ItemGroup>
