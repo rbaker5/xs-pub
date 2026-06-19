@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema
+    targetNamespace="http://tempuri.org/Annotations"
+    elementFormDefault="qualified"
+    xmlns="http://tempuri.org/Annotations"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <!-- Schema-level annotation: multiple documentation languages plus appinfo -->
+  <xs:annotation>
+    <xs:documentation xml:lang="en">Schema-level documentation in English.</xs:documentation>
+    <xs:documentation xml:lang="fr">Documentation au niveau du schéma en français.</xs:documentation>
+    <xs:appinfo source="http://example.com/meta">Schema metadata.</xs:appinfo>
+  </xs:annotation>
+
+  <!-- Annotated global element -->
+  <xs:element name="Root" type="RootType">
+    <xs:annotation>
+      <xs:documentation>The root element of the document.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+
+  <!-- Annotated complex type with annotated child element and attribute -->
+  <xs:complexType name="RootType">
+    <xs:annotation>
+      <xs:documentation>Root type documentation.</xs:documentation>
+      <xs:appinfo>Root type appinfo.</xs:appinfo>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="Title" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>The document title.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Body" type="xs:string" minOccurs="0" />
+    </xs:sequence>
+    <xs:attribute name="version" type="xs:string">
+      <xs:annotation>
+        <xs:documentation>Schema version identifier.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+
+  <!-- Annotated simple type -->
+  <xs:simpleType name="Status">
+    <xs:annotation>
+      <xs:documentation>Allowed status values.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="active">
+        <xs:annotation>
+          <xs:documentation>The item is active.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="inactive" />
+    </xs:restriction>
+  </xs:simpleType>
+
+</xs:schema>

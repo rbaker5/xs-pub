@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema
+    targetNamespace="http://tempuri.org/Particles"
+    elementFormDefault="qualified"
+    xmlns="http://tempuri.org/Particles"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <!-- xs:sequence with explicit minOccurs / maxOccurs on children -->
+  <xs:complexType name="SequenceType">
+    <xs:sequence>
+      <xs:element name="Required" type="xs:string" />
+      <xs:element name="Optional" type="xs:string" minOccurs="0" />
+      <xs:element name="Repeating" type="xs:string" minOccurs="1" maxOccurs="unbounded" />
+      <xs:element name="Bounded" type="xs:string" minOccurs="2" maxOccurs="5" />
+    </xs:sequence>
+  </xs:complexType>
+
+  <!-- xs:choice with nested xs:sequence -->
+  <xs:complexType name="ChoiceType">
+    <xs:choice>
+      <xs:element name="OptionA" type="xs:string" />
+      <xs:element name="OptionB" type="xs:integer" />
+      <xs:sequence>
+        <xs:element name="Pair1" type="xs:string" />
+        <xs:element name="Pair2" type="xs:boolean" />
+      </xs:sequence>
+    </xs:choice>
+  </xs:complexType>
+
+  <!-- xs:all with optional and required members -->
+  <xs:complexType name="AllType">
+    <xs:all>
+      <xs:element name="Alpha" type="xs:string" minOccurs="0" />
+      <xs:element name="Beta" type="xs:integer" minOccurs="0" />
+      <xs:element name="Gamma" type="xs:boolean" />
+    </xs:all>
+  </xs:complexType>
+
+  <!-- xs:any wildcard -->
+  <xs:complexType name="WildcardType">
+    <xs:sequence>
+      <xs:element name="Known" type="xs:string" />
+      <xs:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+    </xs:sequence>
+  </xs:complexType>
+
+  <!-- xs:group definition and reference -->
+  <xs:group name="AddressGroup">
+    <xs:sequence>
+      <xs:element name="Street" type="xs:string" />
+      <xs:element name="City" type="xs:string" />
+      <xs:element name="Postcode" type="xs:string" minOccurs="0" />
+    </xs:sequence>
+  </xs:group>
+
+  <xs:complexType name="PersonType">
+    <xs:sequence>
+      <xs:element name="Name" type="xs:string" />
+      <xs:group ref="AddressGroup" />
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:element name="Sequence" type="SequenceType" />
+  <xs:element name="Choice" type="ChoiceType" />
+  <xs:element name="All" type="AllType" />
+  <xs:element name="Wildcard" type="WildcardType" />
+  <xs:element name="Person" type="PersonType" />
+</xs:schema>

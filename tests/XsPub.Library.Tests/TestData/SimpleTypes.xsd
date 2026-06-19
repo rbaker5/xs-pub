@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema
+    targetNamespace="http://tempuri.org/SimpleTypes"
+    xmlns="http://tempuri.org/SimpleTypes"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <!-- Pattern facet -->
+  <xs:simpleType name="PostalCode">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="\d{5}(-\d{4})?" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <!-- minLength / maxLength facets -->
+  <xs:simpleType name="ShortString">
+    <xs:restriction base="xs:string">
+      <xs:minLength value="1" />
+      <xs:maxLength value="50" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <!-- enumeration facets -->
+  <xs:simpleType name="Color">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Red" />
+      <xs:enumeration value="Green" />
+      <xs:enumeration value="Blue" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <!-- minInclusive / maxInclusive / fractionDigits / totalDigits facets -->
+  <xs:simpleType name="Percentage">
+    <xs:restriction base="xs:decimal">
+      <xs:minInclusive value="0" />
+      <xs:maxInclusive value="100" />
+      <xs:fractionDigits value="2" />
+      <xs:totalDigits value="5" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <!-- whiteSpace facet (collapse) -->
+  <xs:simpleType name="CollapsedString">
+    <xs:restriction base="xs:string">
+      <xs:whiteSpace value="collapse" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <!-- length facet (fixed) -->
+  <xs:simpleType name="SixCharCode">
+    <xs:restriction base="xs:string">
+      <xs:length value="6" fixed="true" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <!-- minExclusive / maxExclusive facets -->
+  <xs:simpleType name="PositivePercentage">
+    <xs:restriction base="xs:decimal">
+      <xs:minExclusive value="0" />
+      <xs:maxExclusive value="100" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <!-- xs:list -->
+  <xs:simpleType name="IntList">
+    <xs:list itemType="xs:integer" />
+  </xs:simpleType>
+
+  <!-- xs:union with memberTypes -->
+  <xs:simpleType name="IntOrString">
+    <xs:union memberTypes="xs:integer xs:string" />
+  </xs:simpleType>
+
+  <xs:element name="PostalCodeEl" type="PostalCode" />
+  <xs:element name="ColorEl" type="Color" />
+  <xs:element name="PercentEl" type="Percentage" />
+  <xs:element name="IntListEl" type="IntList" />
+  <xs:element name="IntOrStringEl" type="IntOrString" />
+</xs:schema>

@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema
+    targetNamespace="http://tempuri.org/ComplexTypes"
+    elementFormDefault="qualified"
+    attributeFormDefault="unqualified"
+    xmlns="http://tempuri.org/ComplexTypes"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <!-- Base type used by complex content extension and restriction below -->
+  <xs:complexType name="BaseType">
+    <xs:sequence>
+      <xs:element name="BaseProp" type="xs:string" />
+    </xs:sequence>
+    <xs:attribute name="BaseAttr" type="xs:string" />
+  </xs:complexType>
+
+  <!-- Complex content: extension adds a child element and attribute -->
+  <xs:complexType name="ExtendedType">
+    <xs:complexContent>
+      <xs:extension base="BaseType">
+        <xs:sequence>
+          <xs:element name="ExtProp" type="xs:integer" minOccurs="0" />
+        </xs:sequence>
+        <xs:attribute name="ExtAttr" type="xs:boolean" />
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <!-- Complex content: restriction keeps only the base sequence -->
+  <xs:complexType name="RestrictedType">
+    <xs:complexContent>
+      <xs:restriction base="ExtendedType">
+        <xs:sequence>
+          <xs:element name="BaseProp" type="xs:string" />
+        </xs:sequence>
+        <xs:attribute name="BaseAttr" type="xs:string" />
+      </xs:restriction>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <!-- Mixed content: text and elements may interleave -->
+  <xs:complexType name="MixedType" mixed="true">
+    <xs:sequence>
+      <xs:element name="Part" type="xs:string" minOccurs="0" maxOccurs="unbounded" />
+    </xs:sequence>
+  </xs:complexType>
+
+  <!-- Abstract type: cannot be instantiated directly -->
+  <xs:complexType name="AbstractBase" abstract="true">
+    <xs:sequence>
+      <xs:element name="Item" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+
+  <!-- Type with block and final constraints -->
+  <xs:complexType name="SealedType" block="#all" final="#all">
+    <xs:sequence>
+      <xs:element name="Value" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+
+  <!-- Type with xs:anyAttribute -->
+  <xs:complexType name="OpenAttrType">
+    <xs:sequence>
+      <xs:element name="Data" type="xs:string" />
+    </xs:sequence>
+    <xs:anyAttribute namespace="##other" processContents="lax" />
+  </xs:complexType>
+
+  <!-- Simple content: extension adds an attribute to a simple-content type -->
+  <xs:complexType name="LangStringType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute name="lang" type="xs:language" />
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+  <!-- Simple content: restriction tightens a simple-content type -->
+  <xs:complexType name="ShortLangStringType">
+    <xs:simpleContent>
+      <xs:restriction base="LangStringType">
+        <xs:maxLength value="100" />
+        <xs:attribute name="lang" type="xs:language" />
+      </xs:restriction>
+    </xs:simpleContent>
+  </xs:complexType>
+
+  <!-- xs:choice particle -->
+  <xs:complexType name="ChoiceType">
+    <xs:choice maxOccurs="unbounded">
+      <xs:element name="OptionA" type="xs:string" />
+      <xs:element name="OptionB" type="xs:integer" />
+    </xs:choice>
+  </xs:complexType>
+
+  <!-- xs:all particle -->
+  <xs:complexType name="AllType">
+    <xs:all>
+      <xs:element name="Field1" type="xs:string" minOccurs="0" />
+      <xs:element name="Field2" type="xs:integer" minOccurs="0" />
+    </xs:all>
+  </xs:complexType>
+
+  <xs:element name="Base" type="BaseType" />
+  <xs:element name="Extended" type="ExtendedType" />
+  <xs:element name="Mixed" type="MixedType" />
+  <xs:element name="Choice" type="ChoiceType" />
+  <xs:element name="All" type="AllType" />
+</xs:schema>

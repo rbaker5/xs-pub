@@ -23,16 +23,24 @@ class XSchemaFixture
         CompareConstraintFactory.AddAssembly(typeof(XElementConstraint).Assembly);
     }
 
-    [Test] public void ReadMinimalSchema()            => ReadAndCompare(TestFile("Minimal.xsd"));
-    [Test] public void EnumerateMinimalSchema()       => EnumerateDescendants(TestFile("Minimal.xsd"));
-    [Test] public void ReadBitOfEverythingSchema()    => ReadAndCompare(TestFile("BitOfEverything.xsd"));
+    [Test] public void ReadMinimalSchema()              => ReadAndCompare(TestFile("Minimal.xsd"));
+    [Test] public void EnumerateMinimalSchema()         => EnumerateDescendants(TestFile("Minimal.xsd"));
+    [Test] public void ReadBitOfEverythingSchema()      => ReadAndCompare(TestFile("BitOfEverything.xsd"));
     [Test] public void EnumerateBitOfEverythingSchema() => EnumerateDescendants(TestFile("BitOfEverything.xsd"));
-    [Test] public void ReadTurkSchema()               => ReadAndCompare(TestFile("TurkSchema.xsd"));
-    [Test] public void EnumerateTurkSchema()          => EnumerateDescendants(TestFile("TurkSchema.xsd"));
-    [Test] public void ReadImporter()                 => ReadAndCompare(TestFile("Importer.xsd"));
-    [Test] public void EnumerateImporter()            => EnumerateDescendants(TestFile("Importer.xsd"));
-    [Test] public void ReadIncluder()                 => ReadAndCompare(TestFile("Includer.xsd"));
-    [Test] public void EnumerateIncluder()            => EnumerateDescendants(TestFile("Includer.xsd"));
+    [Test] public void ReadTurkSchema()                 => ReadAndCompare(TestFile("TurkSchema.xsd"));
+    [Test] public void EnumerateTurkSchema()            => EnumerateDescendants(TestFile("TurkSchema.xsd"));
+    [Test] public void ReadImporter()                   => ReadAndCompare(TestFile("Importer.xsd"));
+    [Test] public void EnumerateImporter()              => EnumerateDescendants(TestFile("Importer.xsd"));
+    [Test] public void ReadIncluder()                   => ReadAndCompare(TestFile("Includer.xsd"));
+    [Test] public void EnumerateIncluder()              => EnumerateDescendants(TestFile("Includer.xsd"));
+    [Test] public void ReadComplexTypes()               => ReadAndCompare(TestFile("ComplexTypes.xsd"));
+    [Test] public void EnumerateComplexTypes()          => EnumerateDescendants(TestFile("ComplexTypes.xsd"));
+    [Test] public void ReadSimpleTypes()                => ReadAndCompare(TestFile("SimpleTypes.xsd"));
+    [Test] public void EnumerateSimpleTypes()           => EnumerateDescendants(TestFile("SimpleTypes.xsd"));
+    [Test] public void ReadParticles()                  => ReadAndCompare(TestFile("Particles.xsd"));
+    [Test] public void EnumerateParticles()             => EnumerateDescendants(TestFile("Particles.xsd"));
+    [Test] public void ReadAnnotations()                => ReadAndCompare(TestFile("Annotations.xsd"));
+    [Test] public void EnumerateAnnotations()           => EnumerateDescendants(TestFile("Annotations.xsd"));
 
     private static void ReadAndCompare(string schemaPath)
     {
