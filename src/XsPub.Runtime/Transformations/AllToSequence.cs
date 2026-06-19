@@ -17,9 +17,9 @@ namespace XsPub.Runtime.Transformations
         public bool DependentTransform(XsSchema schema)
         {
             bool transformPerfored = false;
-            foreach (var all in schema.Descendents.OfType<XsAll>())
+            foreach (var all in schema.Descendents.OfType<XsAll>().ToList())
             {
-                all.ReplaceWith(new XsSequence(all.Items));
+                all.ReplaceWith(new XsSequence(all.Items.ToList()));
                 transformPerfored = true;
             }
             return transformPerfored;

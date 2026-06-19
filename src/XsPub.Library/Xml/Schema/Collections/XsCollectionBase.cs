@@ -97,7 +97,9 @@ namespace XsPub.Library.Xml.Schema.Collections
         /// <exception cref="T:System.ArgumentException"><paramref name="array"/> is multidimensional.-or-<paramref name="arrayIndex"/> is equal to or greater than the length of <paramref name="array"/>.-or-The number of elements in the source <see cref="T:System.Collections.Generic.ICollection`1"/> is greater than the available space from <paramref name="arrayIndex"/> to the end of the destination <paramref name="array"/>.-or-Type <paramref name="T"/> cannot be cast automatically to the type of the destination <paramref name="array"/>.</exception>
         public void CopyTo(TOutput[] array, int arrayIndex)
         {
-            ValueSelector().ToArray();
+            int i = arrayIndex;
+            foreach (var element in ValueSelector())
+                array[i++] = CreateSchemaObject(element);
         }
 
         /// <summary>

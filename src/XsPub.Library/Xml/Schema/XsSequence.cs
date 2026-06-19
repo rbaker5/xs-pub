@@ -18,7 +18,7 @@ namespace XsPub.Library.Xml.Schema
             : base(new XElement(Xs.Sequence))
         {
             foreach (var xsObject in items)
-                _items.Add(xsObject);
+                Items.Add(xsObject);
         }
 
         private ICollection<XsObject> _items;
