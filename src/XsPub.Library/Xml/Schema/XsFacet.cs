@@ -52,7 +52,7 @@ namespace XsPub.Library.Xml.Schema
         public bool IsFixed
         {
             get { return GetAttributeValueInternal(XsA.Fixed, false); }
-            set { SetAttributeValueInternal(XsA.Fixed, value); }
+            set { SetAttributeValueInternal(XsA.Fixed, value, false); }
         }
 
         public string Value

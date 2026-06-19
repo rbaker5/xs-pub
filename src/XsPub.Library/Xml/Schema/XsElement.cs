@@ -65,13 +65,13 @@ namespace XsPub.Library.Xml.Schema
         public bool IsAbstract
         {
             get { return GetAttributeValueInternal(XsA.Abstract, false); }
-            set { SetAttributeValueInternal(XsA.Abstract, value); }
+            set { SetAttributeValueInternal(XsA.Abstract, value, false); }
         }
 
         public bool IsNillable
         {
             get { return GetAttributeValueInternal(XsA.Nillable, false); }
-            set { SetAttributeValueInternal(XsA.Nillable, value); }
+            set { SetAttributeValueInternal(XsA.Nillable, value, false); }
         }
 
         public XName RefName

@@ -57,13 +57,13 @@ namespace XsPub.Library.Xml.Schema
         public override bool IsMixed
         {
             get { return GetAttributeValueInternal(XsA.Mixed, false); }
-            set { SetAttributeValueInternal(XsA.Mixed, value); }
+            set { SetAttributeValueInternal(XsA.Mixed, value, false); }
         }
 
         public bool IsAbstract
         {
             get { return GetAttributeValueInternal(XsA.Abstract, false); }
-            set { SetAttributeValueInternal(XsA.Abstract, value); }
+            set { SetAttributeValueInternal(XsA.Abstract, value, false); }
         }
 
         private static readonly IEnumerable<XName> _contentModelElementNames = new[] { Xs.SimpleContent, Xs.ComplexContent };
@@ -101,9 +101,12 @@ namespace XsPub.Library.Xml.Schema
             {
                 if (ContentModel == null) return getSchemaContentType(this, null, ContentTypeParticle);
                 if (ContentModel is XsSimpleContent) return XmlSchemaContentType.TextOnly;
-                if (ContentModel is XsComplexContent)
+                if (ContentModel is XsComplexContent cc)
                 {
-                    
+                    var ext = cc.Content as XsComplexContentExtension;
+                    var rst = cc.Content as XsComplexContentRestriction;
+                    var particle = ext?.Particle ?? rst?.Particle;
+                    return getSchemaContentType(this, cc, particle);
                 }
 
                 throw createUnsupportedContentModelException();

@@ -329,10 +329,11 @@ namespace XsPub.Library.Xml.Schema
             }
             else
             {
-                if ((localValue & ~filter) != XmlSchemaDerivationMethod.Empty)
+                if (localValue != XmlSchemaDerivationMethod.All && (localValue & ~filter) != XmlSchemaDerivationMethod.Empty)
                     throw createInvalidFormatException(name);
 
-                localValue &= filter;
+                if (localValue != XmlSchemaDerivationMethod.All)
+                    localValue &= filter;
             }
             return localValue;
         }

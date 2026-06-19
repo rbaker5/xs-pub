@@ -25,7 +25,7 @@ namespace XsPub.Library.Xml.Schema
         public bool IsMixed
         {
             get { return GetAttributeValueInternal(XsA.Mixed, false); }
-            set { SetAttributeValueInternal(XsA.Mixed, value); }
+            set { SetAttributeValueInternal(XsA.Mixed, value, false); }
         }
 
         protected override bool IsValidAttribute(XName attributeName)
