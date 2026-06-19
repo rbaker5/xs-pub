@@ -1,0 +1,132 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  # Gate: don't publish a broken build
+  build-and-test:
+    name: Build and test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.x'
+
+      - name: Restore
+        run: dotnet restore
+
+      - name: Build
+        run: dotnet build --no-restore --configuration Release
+
+      - name: Test
+        run: dotnet test --no-build --configuration Release
+
+  # Build self-contained single-file binaries for each platform
+  publish:
+    name: Publish (${{ matrix.rid }})
+    needs: build-and-test
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        include:
+          - os: ubuntu-latest
+            rid: linux-x64
+            archive: xsp-linux-x64.tar.gz
+          - os: ubuntu-latest
+            rid: linux-arm64
+            archive: xsp-linux-arm64.tar.gz
+          - os: windows-latest
+            rid: win-x64
+            archive: xsp-win-x64.zip
+          - os: macos-latest
+            rid: osx-arm64
+            archive: xsp-osx-arm64.tar.gz
+          - os: macos-latest
+            rid: osx-x64
+            archive: xsp-osx-x64.tar.gz
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.x'
+
+      - name: Publish
+        # TAG is set via env so github.ref_name never interpolates directly into
+        # a shell expression. SEMVER strips the leading 'v' (v0.1.0 → 0.1.0).
+        env:
+          TAG: ${{ github.ref_name }}
+          RID: ${{ matrix.rid }}
+        run: |
+          SEMVER="${TAG#v}"
+          dotnet publish src/Xsp/Xsp.csproj \
+            --configuration Release \
+            --runtime "$RID" \
+            --self-contained true \
+            -p:PublishSingleFile=true \
+            -p:Version="$SEMVER" \
+            --output publish/
+        shell: bash
+
+      - name: Archive (Unix)
+        if: runner.os != 'Windows'
+        env:
+          ARCHIVE: ${{ matrix.archive }}
+        run: tar -czf "$ARCHIVE" -C publish .
+
+      - name: Archive (Windows)
+        if: runner.os == 'Windows'
+        env:
+          ARCHIVE: ${{ matrix.archive }}
+        run: Compress-Archive -Path publish\* -DestinationPath "$env:ARCHIVE"
+        shell: pwsh
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.archive }}
+          path: ${{ matrix.archive }}
+
+  # Collect all platform artifacts and create the GitHub Release
+  release:
+    name: Create GitHub Release
+    needs: publish
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Download all artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: artifacts
+          merge-multiple: true
+
+      - name: Create release
+        # TAG is set via env; gh CLI receives it as a positional argument, not
+        # interpolated into a shell string, so no injection risk.
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ github.ref_name }}
+        run: |
+          # v0.x.x and any hyphenated tag (v1.0.0-beta) are pre-releases
+          if [[ "$TAG" == v0.* ]] || [[ "$TAG" == *-* ]]; then
+            gh release create "$TAG" artifacts/* \
+              --title "XsPub $TAG" \
+              --generate-notes \
+              --prerelease
+          else
+            gh release create "$TAG" artifacts/* \
+              --title "XsPub $TAG" \
+              --generate-notes
+          fi
