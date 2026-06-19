@@ -5,21 +5,14 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\XsPub.Library\XsPub.Library.csproj" />
-    <!-- NUnit.Comparisons referenced as pre-built DLLs: the sibling repo's obj/ is on a
-         read-only filesystem in this environment so project references would trigger rebuild
-         failures.  Switch back to project references once NuGet packages are published. -->
-    <Reference Include="NUnit.Comparisons">
-      <HintPath>..\..\..\NUnit.Comparisons\src\NUnit.Comparisons\bin\Debug\net10.0\NUnit.Comparisons.dll</HintPath>
-    </Reference>
-    <Reference Include="NUnit.Comparisons.Xml">
-      <HintPath>..\..\..\NUnit.Comparisons\src\NUnit.Comparisons.Xml\bin\Debug\net10.0\NUnit.Comparisons.Xml.dll</HintPath>
-    </Reference>
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="NUnit" Version="4.*" />
     <PackageReference Include="NUnit3TestAdapter" Version="4.*" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.*" />
+    <PackageReference Include="NUnit.Comparisons" Version="2.0.0" />
+    <PackageReference Include="NUnit.Comparisons.Xml" Version="2.0.0" />
   </ItemGroup>
 
   <ItemGroup>
