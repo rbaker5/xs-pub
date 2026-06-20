@@ -474,7 +474,7 @@ public class XsObjectTests
 public class XsSchemaLoadTests
 {
     private static string TestFile(string name) =>
-        Path.Combine(AppContext.BaseDirectory, "TestData", name);
+        Path.Join(AppContext.BaseDirectory, "TestData", name);
 
     [Theory]
     [InlineData("Minimal.xsd")]
@@ -513,9 +513,9 @@ public class XsSchemaLoadTests
     {
         // XsSchema.Load(string) must install LocalOnlyXmlResolver by default.
         // Verify: an http:// schemaLocation blocks when the include is accessed.
-        var tmpDir = Path.Combine(Path.GetTempPath(), "xspub-schemaload-" + Guid.NewGuid().ToString("N"));
+        var tmpDir = Path.Join(Path.GetTempPath(), "xspub-schemaload-" + Guid.NewGuid().ToString("N"));
         Directory.CreateDirectory(tmpDir);
-        var schemaPath = Path.Combine(tmpDir, "test.xsd");
+        var schemaPath = Path.Join(tmpDir, "test.xsd");
         File.WriteAllText(schemaPath, """
             <?xml version="1.0" encoding="utf-8"?>
             <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">

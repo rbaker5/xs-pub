@@ -10,7 +10,7 @@ public class LocalOnlyXmlResolverTests : IDisposable
 
     public LocalOnlyXmlResolverTests()
     {
-        _baseDir = Path.Combine(Path.GetTempPath(), "xspub-resolver-" + Guid.NewGuid().ToString("N"));
+        _baseDir = Path.Join(Path.GetTempPath(), "xspub-resolver-" + Guid.NewGuid().ToString("N"));
         Directory.CreateDirectory(_baseDir);
     }
 
@@ -22,7 +22,7 @@ public class LocalOnlyXmlResolverTests : IDisposable
     public void ResolveUri_AllowsFileWithinBaseDir()
     {
         var resolver = new LocalOnlyXmlResolver(_baseDir);
-        var baseUri = new Uri(Path.Combine(_baseDir, "root.xsd"));
+        var baseUri = new Uri(Path.Join(_baseDir, "root.xsd"));
         var result = resolver.ResolveUri(baseUri, "child.xsd");
         Assert.Equal(Uri.UriSchemeFile, result.Scheme);
         Assert.Contains("child.xsd", result.LocalPath, StringComparison.OrdinalIgnoreCase);
@@ -50,8 +50,8 @@ public class LocalOnlyXmlResolverTests : IDisposable
     public void ResolveUri_BlocksAbsoluteFileOutsideBaseDir()
     {
         var resolver = new LocalOnlyXmlResolver(_baseDir);
-        var baseUri = new Uri(Path.Combine(_baseDir, "root.xsd"));
-        var outsidePath = Path.Combine(Path.GetTempPath(), "evil.xsd");
+        var baseUri = new Uri(Path.Join(_baseDir, "root.xsd"));
+        var outsidePath = Path.Join(Path.GetTempPath(), "evil.xsd");
         var ex = Assert.Throws<InvalidOperationException>(
             () => resolver.ResolveUri(baseUri, outsidePath));
         Assert.Contains("--allow-external", ex.Message);
@@ -61,7 +61,7 @@ public class LocalOnlyXmlResolverTests : IDisposable
     public void ResolveUri_BlocksPathTraversalOutsideBaseDir()
     {
         var resolver = new LocalOnlyXmlResolver(_baseDir);
-        var baseUri = new Uri(Path.Combine(_baseDir, "root.xsd"));
+        var baseUri = new Uri(Path.Join(_baseDir, "root.xsd"));
         var ex = Assert.Throws<InvalidOperationException>(
             () => resolver.ResolveUri(baseUri, "../outside.xsd"));
         Assert.Contains("--allow-external", ex.Message);
@@ -71,7 +71,7 @@ public class LocalOnlyXmlResolverTests : IDisposable
     public void ResolveUri_AllowsRelativeReferenceWithinBaseDir()
     {
         var resolver = new LocalOnlyXmlResolver(_baseDir);
-        var baseUri = new Uri(Path.Combine(_baseDir, "root.xsd"));
+        var baseUri = new Uri(Path.Join(_baseDir, "root.xsd"));
         var result = resolver.ResolveUri(baseUri, "sub/nested.xsd");
         Assert.Equal(Uri.UriSchemeFile, result.Scheme);
         Assert.StartsWith(_baseDir, result.LocalPath, StringComparison.OrdinalIgnoreCase);
@@ -82,7 +82,7 @@ public class LocalOnlyXmlResolverTests : IDisposable
     [Fact]
     public void XsSchema_Load_DefaultResolver_BlocksHttpImport()
     {
-        var schemaPath = Path.Combine(_baseDir, "http_import.xsd");
+        var schemaPath = Path.Join(_baseDir, "http_import.xsd");
         File.WriteAllText(schemaPath, """
             <?xml version="1.0" encoding="utf-8"?>
             <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
@@ -101,7 +101,7 @@ public class LocalOnlyXmlResolverTests : IDisposable
     [Fact]
     public void XsSchema_Load_DefaultResolver_BlocksOutOfDirInclude()
     {
-        var schemaPath = Path.Combine(_baseDir, "traversal.xsd");
+        var schemaPath = Path.Join(_baseDir, "traversal.xsd");
         File.WriteAllText(schemaPath, """
             <?xml version="1.0" encoding="utf-8"?>
             <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
@@ -118,12 +118,12 @@ public class LocalOnlyXmlResolverTests : IDisposable
     [Fact]
     public void XsSchema_Load_DefaultResolver_AllowsSameDirInclude()
     {
-        File.WriteAllText(Path.Combine(_baseDir, "child.xsd"), """
+        File.WriteAllText(Path.Join(_baseDir, "child.xsd"), """
             <?xml version="1.0" encoding="utf-8"?>
             <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        targetNamespace="http://tempuri.org/child" />
             """);
-        var schemaPath = Path.Combine(_baseDir, "parent.xsd");
+        var schemaPath = Path.Join(_baseDir, "parent.xsd");
         File.WriteAllText(schemaPath, """
             <?xml version="1.0" encoding="utf-8"?>
             <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"

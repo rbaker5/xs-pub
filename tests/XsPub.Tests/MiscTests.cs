@@ -71,7 +71,7 @@ public class TransformationFactoryMetadataTests
 public class XsSchemaCollectionTests
 {
     private static string TestFile(string name) =>
-        Path.Combine(AppContext.BaseDirectory, "TestData", name);
+        Path.Join(AppContext.BaseDirectory, "TestData", name);
 
     // BitOfEverything.xsd targetNamespace
     private static readonly System.Xml.Linq.XNamespace Ns =
@@ -211,7 +211,7 @@ public class RuntimeEdgeCaseTests : IDisposable
 
     public RuntimeEdgeCaseTests()
     {
-        _outputDir = Path.Combine(Path.GetTempPath(), "xspub-edge-" + Guid.NewGuid().ToString("N"));
+        _outputDir = Path.Join(Path.GetTempPath(), "xspub-edge-" + Guid.NewGuid().ToString("N"));
 
         var services = new ServiceCollection();
         services.AddSingleton<ITransformationFactory, AllToSequenceFactory>();
@@ -228,12 +228,12 @@ public class RuntimeEdgeCaseTests : IDisposable
     }
 
     private static string TestFile(string name) =>
-        Path.Combine(AppContext.BaseDirectory, "TestData", name);
+        Path.Join(AppContext.BaseDirectory, "TestData", name);
 
     [Fact]
     public void Publish_OutputDirCreatedIfMissing()
     {
-        var absent = Path.Combine(_outputDir, "new_subdir");
+        var absent = Path.Join(_outputDir, "new_subdir");
         Assert.False(Directory.Exists(absent));
         _runtime.Publish(TestFile("Minimal.xsd"), absent);
         Assert.True(Directory.Exists(absent));
@@ -243,7 +243,7 @@ public class RuntimeEdgeCaseTests : IDisposable
     public void Publish_NonXsdNonWsdlFile_Throws()
     {
         Directory.CreateDirectory(_outputDir);
-        var xmlPath = Path.Combine(_outputDir, "random.xml");
+        var xmlPath = Path.Join(_outputDir, "random.xml");
         File.WriteAllText(xmlPath, "<root />");
         Assert.Throws<InvalidOperationException>(() => _runtime.Publish(xmlPath, _outputDir));
     }

@@ -52,7 +52,7 @@ namespace XsPub.Runtime
                 var fileName = sourceUri.Segments.Last();
                 fileName = Path.ChangeExtension(fileName, ".xsd");
 
-                Runtime.SaveDocument(Schema.Element.Document, Path.Combine(OutputPath, fileName));
+                Runtime.SaveDocument(Schema.Element.Document, Path.Join(OutputPath, fileName));
             }
         }
 

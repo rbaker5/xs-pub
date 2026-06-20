@@ -90,7 +90,7 @@ namespace XsPub.Runtime
                 publishSchema(schema, outputPath, true, settings, resolver);
 
             Directory.CreateDirectory(outputPath);
-            SaveDocument(wsdlDocument, Path.Combine(outputPath, Path.GetFileName(schemaFilePath)));
+            SaveDocument(wsdlDocument, Path.Join(outputPath, Path.GetFileName(schemaFilePath)));
         }
 
         private void publishSchema(XElement schemaRoot, string outputPath, bool isEmbeddedInWsdl,

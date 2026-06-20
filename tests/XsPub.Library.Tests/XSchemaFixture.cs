@@ -65,5 +65,5 @@ class XSchemaFixture
     }
 
     private static string TestFile(string name) =>
-        Path.Combine(TestContext.CurrentContext.TestDirectory, "TestData", name);
+        Path.Join(TestContext.CurrentContext.TestDirectory, "TestData", name);
 }

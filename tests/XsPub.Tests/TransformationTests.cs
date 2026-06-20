@@ -14,7 +14,7 @@ public class TransformationTests : IDisposable
 
     public TransformationTests()
     {
-        _outputDir = Path.Combine(Path.GetTempPath(), "xspub-tests-" + Guid.NewGuid().ToString("N"));
+        _outputDir = Path.Join(Path.GetTempPath(), "xspub-tests-" + Guid.NewGuid().ToString("N"));
         Directory.CreateDirectory(_outputDir);
 
         var services = new ServiceCollection();
@@ -165,8 +165,8 @@ public class TransformationTests : IDisposable
 
     private void AssertMatchesGolden(string goldenSubDir, string fileName)
     {
-        var goldenPath = TestFile(Path.Combine(goldenSubDir, fileName));
-        var actualPath = Path.Combine(_outputDir, fileName);
+        var goldenPath = TestFile(Path.Join(goldenSubDir, fileName));
+        var actualPath = Path.Join(_outputDir, fileName);
 
         Assert.True(File.Exists(actualPath), $"Publish did not write output file '{fileName}'.");
 
@@ -194,5 +194,5 @@ public class TransformationTests : IDisposable
     }
 
     private static string TestFile(string name) =>
-        Path.Combine(AppContext.BaseDirectory, "TestData", name);
+        Path.Join(AppContext.BaseDirectory, "TestData", name);
 }

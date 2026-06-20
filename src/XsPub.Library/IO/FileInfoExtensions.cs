@@ -24,7 +24,7 @@ namespace XsPub.Library.IO
                 destination.Create();
 
             source.MoveTo(
-                Path.Combine(destination.FullName, fileName));
+                Path.Join(destination.FullName, fileName));
         }
 
         public static FileInfo CopyTo(this FileInfo source, DirectoryInfo destination)
@@ -49,7 +49,7 @@ namespace XsPub.Library.IO
                 destination.Create();
 
             return source.CopyTo(
-                Path.Combine(destination.FullName, fileName), overwrite);
+                Path.Join(destination.FullName, fileName), overwrite);
         } 
     }
 }
