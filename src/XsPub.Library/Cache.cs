@@ -40,7 +40,7 @@ namespace XsPub.Library
 
         public bool Equals(Cache<T>? other)
         {
-            return other is not null && _value.Equals(other._value);
+            return other is not null && EqualityComparer<T>.Default.Equals(Value, other.Value);
         }
 
         public override bool Equals(object? other)
