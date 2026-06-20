@@ -4,7 +4,6 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Xml.Linq;
-
 using XsPub.Library.Utility;
 
 namespace XsPub.Library.Xml.Schema
@@ -194,10 +193,10 @@ namespace XsPub.Library.Xml.Schema
                 };
 
         private static readonly Lazy<ILookup<Type, XName>> _schemaNamesByType =
-            Lazy.Create(() => _schemaTypesNamePairs.LookupFromItem1());
+            new(() => _schemaTypesNamePairs.LookupFromItem1());
 
         private static readonly Lazy<ILookup<XName, Type>> _schemaTypesByName =
-            Lazy.Create(() => _schemaTypesNamePairs.LookupFromItem2());
+            new(() => _schemaTypesNamePairs.LookupFromItem2());
 
         public static ILookup<Type, XName> SchemaNamesByType
         {

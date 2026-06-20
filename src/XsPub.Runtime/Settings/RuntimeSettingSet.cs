@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Xml.Linq;
-using XsPub.Runtime.Utility;
 
 namespace XsPub.Runtime.Settings
 {
@@ -29,9 +28,9 @@ namespace XsPub.Runtime.Settings
         private void resetLookups()
         {
             if (_setsByName == null || _setsByName.IsValueCreated)
-                _setsByName = Lazy.Create(() => _transformationSettings.ToDictionary(setting => setting.Name));
+                _setsByName = new(() => _transformationSettings.ToDictionary(setting => setting.Name));
             if (_setsByTransformation == null || _setsByTransformation.IsValueCreated)
-                _setsByTransformation = Lazy.Create(() => _transformationSettings.ToLookup(setting => setting.TransformationName));
+                _setsByTransformation = new(() => _transformationSettings.ToLookup(setting => setting.TransformationName));
         }
 
         public void AddRange(IEnumerable<SettingSet> settingSets)

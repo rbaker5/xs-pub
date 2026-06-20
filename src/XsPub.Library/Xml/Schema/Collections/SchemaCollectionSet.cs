@@ -1,8 +1,6 @@
 using System;
 using System.Collections.Generic;
-using System.Threading;
 using System.Xml.Linq;
-using XsPub.Library.Utility;
 
 namespace XsPub.Library.Xml.Schema.Collections
 {
@@ -14,7 +12,7 @@ namespace XsPub.Library.Xml.Schema.Collections
             where T : XsObject, IGlobalNamedObject
         {
             return create(schema, subValueSelector, redefineValueSelector,
-                          Lazy.Create(() => NamedCollection.Create<T>(schema, elementName)));
+                          new(() => NamedCollection.Create<T>(schema, elementName)));
         }
 
         internal static SchemaCollectionSet<T> Create<T>(XsSchema schema, IEnumerable<XName> elementNames,
@@ -24,7 +22,7 @@ namespace XsPub.Library.Xml.Schema.Collections
             where T : XsObject, IGlobalNamedObject
         {
             return create(schema, subValueSelector, redefineValueSelector,
-                          Lazy.Create(() => NamedCollection.Create<T>(schema, elementNames)));
+                          new(() => NamedCollection.Create<T>(schema, elementNames)));
         }
 
         private static SchemaCollectionSet<T> create<T>(XsSchema schema, 
@@ -36,8 +34,8 @@ namespace XsPub.Library.Xml.Schema.Collections
         {
             var set = new SchemaCollectionSet<T>();
             set.Init(local,
-                     Lazy.Create(() => SchemaCollection.CreateGlobal(schema, set.Local, subValueSelector, redefineValueSelector)),
-                     Lazy.Create(() => SchemaCollection.CreateLocal(schema, set.Local, subValueSelector, redefineValueSelector)));
+                     new(() => SchemaCollection.CreateGlobal(schema, set.Local, subValueSelector, redefineValueSelector)),
+                     new(() => SchemaCollection.CreateLocal(schema, set.Local, subValueSelector, redefineValueSelector)));
             return set;
         }
     }
