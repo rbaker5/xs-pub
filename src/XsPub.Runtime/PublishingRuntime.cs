@@ -127,16 +127,13 @@ namespace XsPub.Runtime
 
                 // TODO: Shouldn't copy all indiscriminately.  Idealy should inspect the entire schema element to see if they are used.  
                 // A little difficult because some (not all) attributes need to be inspected.
-                foreach (var ns in namespaces)
+                foreach (var ns in namespaces.Where(ns => schemaElement.GetNamespaceOfPrefix(ns.Prefix) == null))
                 {
-                    if (schemaElement.GetNamespaceOfPrefix(ns.Prefix) == null)
-                    {
-                        var usesNamespace = schemaElement.Descendants().Any(element => element.Name.NamespaceName == ns.Name);
-                        if (schemaElement.Descendants().Attributes().Any(attribute => attribute.Value.StartsWith(ns.Prefix)))
-                            usesNamespace = true;
-                        //if (usesNamespace)
-                        schemaElement.SetAttributeValue(XNamespace.Xmlns.GetName(ns.Prefix), ns.Name);
-                    }
+                    var usesNamespace = schemaElement.Descendants().Any(element => element.Name.NamespaceName == ns.Name);
+                    if (schemaElement.Descendants().Attributes().Any(attribute => attribute.Value.StartsWith(ns.Prefix)))
+                        usesNamespace = true;
+                    //if (usesNamespace)
+                    schemaElement.SetAttributeValue(XNamespace.Xmlns.GetName(ns.Prefix), ns.Name);
                 }
             }
         }

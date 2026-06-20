@@ -32,10 +32,9 @@ namespace XsPub.Library.Xml.Schema
                     if (derivation != XmlSchemaDerivationMethod.None) return derivation;
                     derivation = 0;
 
-                    var values = value.Split(_whiteSpaceCharacters, StringSplitOptions.RemoveEmptyEntries);
-                    foreach (var subValue in values)
+                    foreach (var subDerivation in value.Split(_whiteSpaceCharacters, StringSplitOptions.RemoveEmptyEntries)
+                                                       .Select(parseSingleDerivationMethod))
                     {
-                        var subDerivation = parseSingleDerivationMethod(subValue);
                         if (subDerivation == XmlSchemaDerivationMethod.None) return XmlSchemaDerivationMethod.None;
                         derivation |= subDerivation;
                     }

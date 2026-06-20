@@ -58,9 +58,10 @@ namespace XsPub.Library.Xml.Schema.Collections
                     returnValue = LocalCollection[name.LocalName];
                 else if (IsLocal) return null;
 
-                foreach (var include in Schema.Includes.Where(include => include.Schema.TargetNamespace == name.NamespaceName))
+                foreach (var subValue in Schema.Includes
+                    .Where(include => include.Schema.TargetNamespace == name.NamespaceName)
+                    .Select(include => getSubValue(name, include)))
                 {
-                    var subValue = getSubValue(name, include);
                     if (returnValue != null && subValue != null)
                         throw new InvalidOperationException("Two objects with conflicting names found.");
 
