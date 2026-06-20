@@ -38,14 +38,14 @@ namespace XsPub.Library
             return _value.Value.GetHashCode();
         }
 
-        public bool Equals(Cache<T> other)
+        public bool Equals(Cache<T>? other)
         {
-            return _value.Equals(other._value);
+            return other is not null && _value.Equals(other._value);
         }
 
-        public override bool Equals(object other)
+        public override bool Equals(object? other)
         {
-            return other != null && other.GetType() == GetType() && Equals((Cache<T>)other);
+            return Equals(other as Cache<T>);
         }
 
         private void buildValue(LazyThreadSafetyMode mode)
