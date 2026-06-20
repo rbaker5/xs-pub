@@ -94,7 +94,7 @@ public class LocalOnlyXmlResolverTests : IDisposable
 
         var schema = XsSchema.Load(schemaPath);
         var ex = Assert.Throws<InvalidOperationException>(
-            () => { var _ = schema.Includes.First().Schema; });
+            () => { _ = schema.Includes.First().Schema; });
         Assert.Contains("--allow-external", ex.Message);
     }
 
@@ -111,7 +111,7 @@ public class LocalOnlyXmlResolverTests : IDisposable
 
         var schema = XsSchema.Load(schemaPath);
         var ex = Assert.Throws<InvalidOperationException>(
-            () => { var _ = schema.Includes.First().Schema; });
+            () => { _ = schema.Includes.First().Schema; });
         Assert.Contains("--allow-external", ex.Message);
     }
 

@@ -526,7 +526,7 @@ public class XsSchemaLoadTests
         {
             var schema = XsSchema.Load(schemaPath);
             var ex = Assert.Throws<InvalidOperationException>(
-                () => { var _ = schema.Includes.First().Schema; });
+                () => { _ = schema.Includes.First().Schema; });
             Assert.Contains("--allow-external", ex.Message);
         }
         finally
