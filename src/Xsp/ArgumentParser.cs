@@ -18,7 +18,7 @@ namespace Xsp
         private readonly List<string> _messages = new List<string>();
         private bool _isValid;
 
-        private string Usage =
+        private readonly string Usage =
             "Usage: xsp <input.xsd|input.wsdl> <output-dir> [TransformName.Setting=value ...]" + Environment.NewLine +
             Environment.NewLine +
             "  input    XSD schema or WSDL document to publish." + Environment.NewLine +
