@@ -45,7 +45,7 @@ namespace XsPub.Library
 
         public override bool Equals(object other)
         {
-            return ((other is Cache<T>) && Equals((Cache<T>)other));
+            return other is Cache<T> cache && Equals(cache);
         }
 
         private void buildValue(LazyThreadSafetyMode mode)
