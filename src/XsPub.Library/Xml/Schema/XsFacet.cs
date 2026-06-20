@@ -7,7 +7,7 @@ namespace XsPub.Library.Xml.Schema
 {
     public class XsFacet : XsAnnotated
     {
-        private static IDictionary<XName, FacetType> _facetsTypes =
+        private static readonly IDictionary<XName, FacetType> _facetsTypes =
             new Dictionary<XName, FacetType>
                 {
                     {Xs.FractionDigits, FacetType.FractionDigits},
@@ -25,7 +25,7 @@ namespace XsPub.Library.Xml.Schema
                     {Xs.WhiteSpace, FacetType.WhiteSpace}
                 };
 
-        private static IDictionary<FacetType, XName> _facetNames = _facetsTypes.InvertDictionary();
+        private static readonly IDictionary<FacetType, XName> _facetNames = _facetsTypes.InvertDictionary();
 
         public static XsFacet Create(XElement element, XsObject parent)
         {

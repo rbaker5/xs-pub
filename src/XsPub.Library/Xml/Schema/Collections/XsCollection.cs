@@ -7,7 +7,7 @@ namespace XsPub.Library.Xml.Schema.Collections
 {
     internal class XsCollection : XsMultiElementCollection<XsObject>
     {
-        protected static Func<XElement, bool> _defaultFilter = (element => element.Name.Namespace == Namespaces.Xs);
+        protected static readonly Func<XElement, bool> _defaultFilter = (element => element.Name.Namespace == Namespaces.Xs);
 
         public static ICollection<XsObject> Create(XsObject parent)
         {

@@ -134,7 +134,7 @@ namespace XsPub.Library.Xml.Schema
                                                       "Unsupported schema element: {0}", element.Name));
         }
 
-        private static List<Tuple<XName, Type>> _schemaTypesNamePairs =
+        private static readonly List<Tuple<XName, Type>> _schemaTypesNamePairs =
             new List<Tuple<XName, Type>>
                 {
                     Tuple.Create(Xs.All, typeof (XsAll)),
@@ -193,10 +193,10 @@ namespace XsPub.Library.Xml.Schema
                     Tuple.Create(Xs.WhiteSpace, typeof(XsFacet))
                 };
 
-        private static Lazy<ILookup<Type, XName>> _schemaNamesByType =
+        private static readonly Lazy<ILookup<Type, XName>> _schemaNamesByType =
             Lazy.Create(() => _schemaTypesNamePairs.LookupFromItem1());
 
-        private static Lazy<ILookup<XName, Type>> _schemaTypesByName =
+        private static readonly Lazy<ILookup<XName, Type>> _schemaTypesByName =
             Lazy.Create(() => _schemaTypesNamePairs.LookupFromItem2());
 
         public static ILookup<Type, XName> SchemaNamesByType

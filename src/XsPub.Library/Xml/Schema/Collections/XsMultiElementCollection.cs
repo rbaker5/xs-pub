@@ -9,7 +9,7 @@ namespace XsPub.Library.Xml.Schema.Collections
         where T : XsObject
     {
         private readonly Func<XElement, bool> _filter;
-        private static Func<XElement, bool> _defaultFilter = (element => element.Name.Namespace == Namespaces.Xs);
+        private static readonly Func<XElement, bool> _defaultFilter = (element => element.Name.Namespace == Namespaces.Xs);
 
         /// <summary>
         /// Creates a wrapper of a set of schema objects, using a filter for all queries.
