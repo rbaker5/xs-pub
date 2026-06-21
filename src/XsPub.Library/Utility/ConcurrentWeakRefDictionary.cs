@@ -59,7 +59,7 @@ namespace XsPub.Library.Utility
         /// <returns>Returns true if the value was present; false otherwise.</returns>
         public bool TryGetValue(TKey key, out TValue value)
         {
-            value = default(TValue);
+            value = default;
             WeakReference wr;
 
             if (!_inner.TryGetValue(key, out wr))

@@ -13,10 +13,10 @@ namespace XsPub.Library
             return input == null ? defaultValue : actionIfNull(input);
         }
 
-        public static TResult IfNotNull<TInput, TResult>(this TInput input, Func<TInput, TResult> actionIfNull)
+        public static TResult? IfNotNull<TInput, TResult>(this TInput input, Func<TInput, TResult> actionIfNull)
             where TInput : class
         {
-            return input == null ? default(TResult) : actionIfNull(input);
+            return input == null ? default : actionIfNull(input);
         }
     }
 }

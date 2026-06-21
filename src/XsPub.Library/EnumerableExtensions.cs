@@ -13,6 +13,7 @@ namespace XsPub.Library
         }
 
         public static ILookup<TKey, TValue> LookupFromItem1<TKey, TValue>(this IEnumerable<Tuple<TValue, TKey>> source)
+            where TKey : notnull
         {
             ArgumentNullException.ThrowIfNull(source);
 
@@ -20,6 +21,7 @@ namespace XsPub.Library
         }
 
         public static ILookup<TKey, TValue> LookupFromItem2<TKey, TValue>(this IEnumerable<Tuple<TKey, TValue>> source)
+            where TKey : notnull
         {
             ArgumentNullException.ThrowIfNull(source);
 
@@ -27,6 +29,7 @@ namespace XsPub.Library
         }
 
         public static IDictionary<TKey, TValue> DictionaryFromItem1<TKey, TValue>(this IEnumerable<Tuple<TValue, TKey>> source)
+            where TKey : notnull
         {
             ArgumentNullException.ThrowIfNull(source);
 
@@ -34,6 +37,7 @@ namespace XsPub.Library
         }
 
         public static IDictionary<TKey, TValue> DictionaryFromItem2<TKey, TValue>(this IEnumerable<Tuple<TKey, TValue>> source)
+            where TKey : notnull
         {
             ArgumentNullException.ThrowIfNull(source);
 
@@ -44,6 +48,7 @@ namespace XsPub.Library
     internal static class DictionaryExtensions
     {
         public static IDictionary<TKey, TValue> InvertDictionary<TKey, TValue>(this IEnumerable<KeyValuePair<TValue, TKey>> source)
+            where TKey : notnull
         {
             ArgumentNullException.ThrowIfNull(source);
 
@@ -51,6 +56,7 @@ namespace XsPub.Library
         }
 
         public static ILookup<TKey, TValue> InvertToLookup<TKey, TValue>(this IEnumerable<KeyValuePair<TValue, TKey>> source)
+            where TKey : notnull
         {
             ArgumentNullException.ThrowIfNull(source);
 
