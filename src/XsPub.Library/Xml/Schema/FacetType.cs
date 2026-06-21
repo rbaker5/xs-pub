@@ -1,20 +1,19 @@
-namespace XsPub.Library.Xml.Schema
+namespace XsPub.Library.Xml.Schema;
+
+public enum FacetType
 {
-    public enum FacetType
-    {
-        None,
-        Length,
-        MinLength,
-        MaxLength,
-        Pattern,
-        WhiteSpace,
-        Enumeration,
-        MinExclusive,
-        MinInclusive,
-        MaxExclusive,
-        MaxInclusive,
-        TotalDigits,
-        FractionDigits,
-        ExplicitTimezone
-    }
+    None,
+    Length,
+    MinLength,
+    MaxLength,
+    Pattern,
+    WhiteSpace,
+    Enumeration,
+    MinExclusive,
+    MinInclusive,
+    MaxExclusive,
+    MaxInclusive,
+    TotalDigits,
+    FractionDigits,
+    ExplicitTimezone
 }

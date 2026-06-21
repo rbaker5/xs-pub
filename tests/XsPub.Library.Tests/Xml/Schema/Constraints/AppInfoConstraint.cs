@@ -1,5 +1,5 @@
-using NUnit.Comparisons;
 using System.Xml.Schema;
+using NUnit.Comparisons;
 using XsPub.Library.Xml.Schema;
 
 namespace XsPub.Library.Tests.Xml.Schema.Constraints;

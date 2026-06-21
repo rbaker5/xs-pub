@@ -1,9 +1,8 @@
 using System.Xml.Linq;
 
-namespace XsPub.Library.Xml.Schema
+namespace XsPub.Library.Xml.Schema;
+
+interface IGlobalNamedObject : INamedObject
 {
-    interface IGlobalNamedObject : INamedObject
-    {
-        XName QualifiedName { get; }
-    }
+    XName QualifiedName { get; }
 }

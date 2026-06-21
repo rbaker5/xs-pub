@@ -1,10 +1,10 @@
 using Microsoft.Extensions.DependencyInjection;
-using Xunit;
 using Xsp;
 using XsPub.Library.Xml.Schema;
 using XsPub.Runtime;
 using XsPub.Runtime.Settings;
 using XsPub.Runtime.Transformations;
+using Xunit;
 
 namespace XsPub.Tests;
 

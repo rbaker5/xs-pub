@@ -1,6 +1,6 @@
-using Xunit;
 using XsPub.Library.Xml;
 using XsPub.Library.Xml.Schema;
+using Xunit;
 
 namespace XsPub.Tests;
 

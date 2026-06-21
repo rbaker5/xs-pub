@@ -1,6 +1,6 @@
-using Xunit;
 using XsPub.Runtime;
 using XsPub.Runtime.Settings;
+using Xunit;
 
 namespace XsPub.Tests;
 

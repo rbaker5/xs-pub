@@ -3,10 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace XsPub.Library.Xml.Schema
+namespace XsPub.Library.Xml.Schema;
+
+interface INamedObject
 {
-    interface INamedObject
-    {
-        string Name { get; set;}
-    }
+    string Name { get; set;}
 }

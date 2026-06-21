@@ -4,340 +4,339 @@ using System.Linq;
 using System.Text;
 using System.Xml;
 
-namespace XsPub.Library.Xml
+namespace XsPub.Library.Xml;
+
+public abstract class XmlWrappingReader : XmlReader, IXmlLineInfo
 {
-    public abstract class XmlWrappingReader : XmlReader, IXmlLineInfo
+    // Fields
+    private XmlReader _baseReader;
+
+    // Methods
+    protected XmlWrappingReader(XmlReader baseReader)
     {
-        // Fields
-        private XmlReader _baseReader;
+        ArgumentNullException.ThrowIfNull(baseReader);
+        _baseReader = baseReader;
+    }
 
-        // Methods
-        protected XmlWrappingReader(XmlReader baseReader)
+    public override void Close()
+    {
+        _baseReader.Close();
+    }
+
+    protected override void Dispose(bool disposing)
+    {
+        if (ReadState != ReadState.Closed)
         {
-            ArgumentNullException.ThrowIfNull(baseReader);
-            _baseReader = baseReader;
+            Close();
         }
+        ((IDisposable)_baseReader).Dispose();
+    }
 
-        public override void Close()
+    public override string GetAttribute(int i)
+    {
+        return _baseReader.GetAttribute(i);
+    }
+
+    public override string GetAttribute(string name)
+    {
+        return _baseReader.GetAttribute(name);
+    }
+
+    public override string GetAttribute(string localName, string namespaceUri)
+    {
+        return _baseReader.GetAttribute(localName, namespaceUri);
+    }
+
+    public bool HasLineInfo()
+    {
+        var baseReader = _baseReader as IXmlLineInfo;
+        return ((baseReader != null) && baseReader.HasLineInfo());
+    }
+
+    public override string LookupNamespace(string prefix)
+    {
+        return _baseReader.LookupNamespace(prefix);
+    }
+
+    public override void MoveToAttribute(int i)
+    {
+        _baseReader.MoveToAttribute(i);
+    }
+
+    public override bool MoveToAttribute(string name)
+    {
+        return _baseReader.MoveToAttribute(name);
+    }
+
+    public override bool MoveToAttribute(string localName, string namespaceUri)
+    {
+        return _baseReader.MoveToAttribute(localName, namespaceUri);
+    }
+
+    public override bool MoveToElement()
+    {
+        return _baseReader.MoveToElement();
+    }
+
+    public override bool MoveToFirstAttribute()
+    {
+        return _baseReader.MoveToFirstAttribute();
+    }
+
+    public override bool MoveToNextAttribute()
+    {
+        return _baseReader.MoveToNextAttribute();
+    }
+
+    public override bool Read()
+    {
+        return _baseReader.Read();
+    }
+
+    public override bool ReadAttributeValue()
+    {
+        return _baseReader.ReadAttributeValue();
+    }
+
+    public override int ReadValueChunk(char[] buffer, int index, int count)
+    {
+        return _baseReader.ReadValueChunk(buffer, index, count);
+    }
+
+    public override void ResolveEntity()
+    {
+        _baseReader.ResolveEntity();
+    }
+
+    // Properties
+    public override int AttributeCount
+    {
+        get
         {
-            _baseReader.Close();
+            return _baseReader.AttributeCount;
         }
+    }
 
-        protected override void Dispose(bool disposing)
+    protected XmlReader BaseReader
+    {
+        get
         {
-            if (ReadState != ReadState.Closed)
-            {
-                Close();
-            }
-            ((IDisposable)_baseReader).Dispose();
+            return _baseReader;
         }
-
-        public override string GetAttribute(int i)
+        set
         {
-            return _baseReader.GetAttribute(i);
+            ArgumentNullException.ThrowIfNull(value);
+            _baseReader = value;
         }
+    }
 
-        public override string GetAttribute(string name)
+    public override string BaseURI
+    {
+        get
         {
-            return _baseReader.GetAttribute(name);
+            return _baseReader.BaseURI;
         }
+    }
 
-        public override string GetAttribute(string localName, string namespaceUri)
+    public override bool CanReadBinaryContent
+    {
+        get
         {
-            return _baseReader.GetAttribute(localName, namespaceUri);
+            return _baseReader.CanReadBinaryContent;
         }
+    }
 
-        public bool HasLineInfo()
+    public override bool CanReadValueChunk
+    {
+        get
+        {
+            return _baseReader.CanReadValueChunk;
+        }
+    }
+
+    public override bool CanResolveEntity
+    {
+        get
+        {
+            return _baseReader.CanResolveEntity;
+        }
+    }
+
+    public override int Depth
+    {
+        get
+        {
+            return _baseReader.Depth;
+        }
+    }
+
+    public override bool EOF
+    {
+        get
+        {
+            return _baseReader.EOF;
+        }
+    }
+
+    public override bool HasValue
+    {
+        get
+        {
+            return _baseReader.HasValue;
+        }
+    }
+
+    public override bool IsDefault
+    {
+        get
+        {
+            return _baseReader.IsDefault;
+        }
+    }
+
+    public override bool IsEmptyElement
+    {
+        get
+        {
+            return _baseReader.IsEmptyElement;
+        }
+    }
+
+    public override string this[string name, string namespaceUri]
+    {
+        get
+        {
+            return _baseReader[name, namespaceUri];
+        }
+    }
+
+    public override string this[string name]
+    {
+        get
+        {
+            return _baseReader[name];
+        }
+    }
+
+    public override string this[int i]
+    {
+        get
+        {
+            return _baseReader[i];
+        }
+    }
+
+    public int LineNumber
+    {
+        get
         {
             var baseReader = _baseReader as IXmlLineInfo;
-            return ((baseReader != null) && baseReader.HasLineInfo());
-        }
-
-        public override string LookupNamespace(string prefix)
-        {
-            return _baseReader.LookupNamespace(prefix);
-        }
-
-        public override void MoveToAttribute(int i)
-        {
-            _baseReader.MoveToAttribute(i);
-        }
-
-        public override bool MoveToAttribute(string name)
-        {
-            return _baseReader.MoveToAttribute(name);
-        }
-
-        public override bool MoveToAttribute(string localName, string namespaceUri)
-        {
-            return _baseReader.MoveToAttribute(localName, namespaceUri);
-        }
-
-        public override bool MoveToElement()
-        {
-            return _baseReader.MoveToElement();
-        }
-
-        public override bool MoveToFirstAttribute()
-        {
-            return _baseReader.MoveToFirstAttribute();
-        }
-
-        public override bool MoveToNextAttribute()
-        {
-            return _baseReader.MoveToNextAttribute();
-        }
-
-        public override bool Read()
-        {
-            return _baseReader.Read();
-        }
-
-        public override bool ReadAttributeValue()
-        {
-            return _baseReader.ReadAttributeValue();
-        }
-
-        public override int ReadValueChunk(char[] buffer, int index, int count)
-        {
-            return _baseReader.ReadValueChunk(buffer, index, count);
-        }
-
-        public override void ResolveEntity()
-        {
-            _baseReader.ResolveEntity();
-        }
-
-        // Properties
-        public override int AttributeCount
-        {
-            get
+            if (baseReader != null)
             {
-                return _baseReader.AttributeCount;
+                return baseReader.LineNumber;
             }
+            return 0;
         }
+    }
 
-        protected XmlReader BaseReader
+    public int LinePosition
+    {
+        get
         {
-            get
+            var baseReader = _baseReader as IXmlLineInfo;
+            if (baseReader != null)
             {
-                return _baseReader;
+                return baseReader.LinePosition;
             }
-            set
-            {
-                ArgumentNullException.ThrowIfNull(value);
-                _baseReader = value;
-            }
+            return 0;
         }
+    }
 
-        public override string BaseURI
+    public override string LocalName
+    {
+        get
         {
-            get
-            {
-                return _baseReader.BaseURI;
-            }
+            return _baseReader.LocalName;
         }
+    }
 
-        public override bool CanReadBinaryContent
+    public override string Name
+    {
+        get
         {
-            get
-            {
-                return _baseReader.CanReadBinaryContent;
-            }
+            return _baseReader.Name;
         }
+    }
 
-        public override bool CanReadValueChunk
+    public override string NamespaceURI
+    {
+        get
         {
-            get
-            {
-                return _baseReader.CanReadValueChunk;
-            }
+            return _baseReader.NamespaceURI;
         }
+    }
 
-        public override bool CanResolveEntity
+    public override XmlNameTable NameTable
+    {
+        get
         {
-            get
-            {
-                return _baseReader.CanResolveEntity;
-            }
+            return _baseReader.NameTable;
         }
+    }
 
-        public override int Depth
+    public override XmlNodeType NodeType
+    {
+        get
         {
-            get
-            {
-                return _baseReader.Depth;
-            }
+            return _baseReader.NodeType;
         }
+    }
 
-        public override bool EOF
+    public override string Prefix
+    {
+        get
         {
-            get
-            {
-                return _baseReader.EOF;
-            }
+            return _baseReader.Prefix;
         }
+    }
 
-        public override bool HasValue
+    public override char QuoteChar
+    {
+        get
         {
-            get
-            {
-                return _baseReader.HasValue;
-            }
+            return _baseReader.QuoteChar;
         }
+    }
 
-        public override bool IsDefault
+    public override ReadState ReadState
+    {
+        get
         {
-            get
-            {
-                return _baseReader.IsDefault;
-            }
+            return _baseReader.ReadState;
         }
+    }
 
-        public override bool IsEmptyElement
+    public override string Value
+    {
+        get
         {
-            get
-            {
-                return _baseReader.IsEmptyElement;
-            }
+            return _baseReader.Value;
         }
+    }
 
-        public override string this[string name, string namespaceUri]
+    public override string XmlLang
+    {
+        get
         {
-            get
-            {
-                return _baseReader[name, namespaceUri];
-            }
+            return _baseReader.XmlLang;
         }
+    }
 
-        public override string this[string name]
+    public override XmlSpace XmlSpace
+    {
+        get
         {
-            get
-            {
-                return _baseReader[name];
-            }
-        }
-
-        public override string this[int i]
-        {
-            get
-            {
-                return _baseReader[i];
-            }
-        }
-
-        public int LineNumber
-        {
-            get
-            {
-                var baseReader = _baseReader as IXmlLineInfo;
-                if (baseReader != null)
-                {
-                    return baseReader.LineNumber;
-                }
-                return 0;
-            }
-        }
-
-        public int LinePosition
-        {
-            get
-            {
-                var baseReader = _baseReader as IXmlLineInfo;
-                if (baseReader != null)
-                {
-                    return baseReader.LinePosition;
-                }
-                return 0;
-            }
-        }
-
-        public override string LocalName
-        {
-            get
-            {
-                return _baseReader.LocalName;
-            }
-        }
-
-        public override string Name
-        {
-            get
-            {
-                return _baseReader.Name;
-            }
-        }
-
-        public override string NamespaceURI
-        {
-            get
-            {
-                return _baseReader.NamespaceURI;
-            }
-        }
-
-        public override XmlNameTable NameTable
-        {
-            get
-            {
-                return _baseReader.NameTable;
-            }
-        }
-
-        public override XmlNodeType NodeType
-        {
-            get
-            {
-                return _baseReader.NodeType;
-            }
-        }
-
-        public override string Prefix
-        {
-            get
-            {
-                return _baseReader.Prefix;
-            }
-        }
-
-        public override char QuoteChar
-        {
-            get
-            {
-                return _baseReader.QuoteChar;
-            }
-        }
-
-        public override ReadState ReadState
-        {
-            get
-            {
-                return _baseReader.ReadState;
-            }
-        }
-
-        public override string Value
-        {
-            get
-            {
-                return _baseReader.Value;
-            }
-        }
-
-        public override string XmlLang
-        {
-            get
-            {
-                return _baseReader.XmlLang;
-            }
-        }
-
-        public override XmlSpace XmlSpace
-        {
-            get
-            {
-                return _baseReader.XmlSpace;
-            }
+            return _baseReader.XmlSpace;
         }
     }
 }

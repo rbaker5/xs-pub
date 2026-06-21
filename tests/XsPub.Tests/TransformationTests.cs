@@ -1,9 +1,9 @@
-using Microsoft.Extensions.DependencyInjection;
 using System.Text.RegularExpressions;
-using Xunit;
+using Microsoft.Extensions.DependencyInjection;
 using XsPub.Library.Xml.Schema;
 using XsPub.Runtime;
 using XsPub.Runtime.Transformations;
+using Xunit;
 
 namespace XsPub.Tests;
 

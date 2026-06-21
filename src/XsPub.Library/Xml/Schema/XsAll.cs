@@ -2,26 +2,25 @@ using System.Collections.Generic;
 using System.Xml.Linq;
 using XsPub.Library.Xml.Schema.Collections;
 
-namespace XsPub.Library.Xml.Schema
+namespace XsPub.Library.Xml.Schema;
+
+public class XsAll : XsGroupBase
 {
-    public class XsAll : XsGroupBase
+    public XsAll(XElement element) : base(element)
     {
-        public XsAll(XElement element) : base(element)
-        {
-        }
+    }
 
-        public XsAll(XElement element, XsObject parent) : base(element, parent)
-        {
-        }
+    public XsAll(XElement element, XsObject parent) : base(element, parent)
+    {
+    }
 
-        private ICollection<XsObject> _items;
-        public override ICollection<XsObject> Items
+    private ICollection<XsObject> _items;
+    public override ICollection<XsObject> Items
+    {
+        get
         {
-            get
-            {
-                if (_items == null) _items = XsCollection.Create<XsObject>(this, Xs.Element);
-                return _items;
-            }
+            if (_items == null) _items = XsCollection.Create<XsObject>(this, Xs.Element);
+            return _items;
         }
     }
 }

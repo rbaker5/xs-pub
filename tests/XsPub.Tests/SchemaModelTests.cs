@@ -1,9 +1,9 @@
-using Xunit;
 using System.Xml;
 using System.Xml.Linq;
 using System.Xml.Schema;
 using XsPub.Library.Xml;
 using XsPub.Library.Xml.Schema;
+using Xunit;
 
 namespace XsPub.Tests;
 

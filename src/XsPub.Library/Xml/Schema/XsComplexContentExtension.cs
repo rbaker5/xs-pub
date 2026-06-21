@@ -3,54 +3,53 @@ using System.Xml;
 using System.Xml.Linq;
 using XsPub.Library.Xml.Schema.Collections;
 
-namespace XsPub.Library.Xml.Schema
+namespace XsPub.Library.Xml.Schema;
+
+public class XsComplexContentExtension : XsContent
 {
-    public class XsComplexContentExtension : XsContent
+    public XsComplexContentExtension(XElement element)
+        : base(element)
     {
-        public XsComplexContentExtension(XElement element)
-            : base(element)
-        {
-        }
+    }
 
-        public XsComplexContentExtension(XElement element, XsObject parent)
-            : base(element, parent)
-        {
-        }
+    public XsComplexContentExtension(XElement element, XsObject parent)
+        : base(element, parent)
+    {
+    }
 
-        public XsAnyAttribute AnyAttribute
-        {
-            get { return GetElement<XsAnyAttribute>(Xs.AnyAttribute); }
-            set { SetElement(Xs.AnyAttribute, value); }
-        }
+    public XsAnyAttribute AnyAttribute
+    {
+        get { return GetElement<XsAnyAttribute>(Xs.AnyAttribute); }
+        set { SetElement(Xs.AnyAttribute, value); }
+    }
 
-        private ICollection<XsObject> _attributes;
-        private static readonly IEnumerable<XName> _attributeElementNames = new[] { Xs.Attribute, Xs.AttributeGroup };
-        public ICollection<XsObject> Attributes
+    private ICollection<XsObject> _attributes;
+    private static readonly IEnumerable<XName> _attributeElementNames = new[] { Xs.Attribute, Xs.AttributeGroup };
+    public ICollection<XsObject> Attributes
+    {
+        get
         {
-            get
-            {
-                if (_attributes == null) _attributes = XsCollection.Create<XsObject>(this, _attributeElementNames);
-                return _attributes;
-            }
+            if (_attributes == null) _attributes = XsCollection.Create<XsObject>(this, _attributeElementNames);
+            return _attributes;
         }
+    }
 
-        public XName BaseTypeName
-        {
-            get { return GetQualifiedName(XsA.Base); }
-            set { SetQualifiedName(XsA.Base, value); }
-        }
+    public XName BaseTypeName
+    {
+        get { return GetQualifiedName(XsA.Base); }
+        set { SetQualifiedName(XsA.Base, value); }
+    }
 
-        private static readonly IEnumerable<XName> _particleElementNames = new[] { Xs.Sequence, Xs.Group, Xs.Choice, Xs.All };
-        public XsParticle Particle
-        {
-            get { return GetExclusiveOrElement<XsParticle>(_particleElementNames); }
-            set { SetExclusiveOrElement(_particleElementNames, value); }
-        }
+    private static readonly IEnumerable<XName> _particleElementNames = new[] { Xs.Sequence, Xs.Group, Xs.Choice, Xs.All };
+    public XsParticle Particle
+    {
+        get { return GetExclusiveOrElement<XsParticle>(_particleElementNames); }
+        set { SetExclusiveOrElement(_particleElementNames, value); }
+    }
 
-        protected override bool IsValidAttribute(XName attributeName)
-        {
-            if (attributeName == XsA.Base) return true;
-            return base.IsValidAttribute(attributeName);
-        }
+    protected override bool IsValidAttribute(XName attributeName)
+    {
+        if (attributeName == XsA.Base) return true;
+        return base.IsValidAttribute(attributeName);
     }
 }

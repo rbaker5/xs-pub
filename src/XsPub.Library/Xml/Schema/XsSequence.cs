@@ -2,34 +2,33 @@ using System.Collections.Generic;
 using System.Xml.Linq;
 using XsPub.Library.Xml.Schema.Collections;
 
-namespace XsPub.Library.Xml.Schema
+namespace XsPub.Library.Xml.Schema;
+
+public class XsSequence : XsGroupBase
 {
-    public class XsSequence : XsGroupBase
+    public XsSequence(XElement element) : base(element)
     {
-        public XsSequence(XElement element) : base(element)
-        {
-        }
+    }
 
-        public XsSequence(XElement element, XsObject parent) : base(element, parent)
-        {
-        }
+    public XsSequence(XElement element, XsObject parent) : base(element, parent)
+    {
+    }
 
-        public XsSequence(IEnumerable<XsObject> items)
-            : base(new XElement(Xs.Sequence))
-        {
-            foreach (var xsObject in items)
-                Items.Add(xsObject);
-        }
+    public XsSequence(IEnumerable<XsObject> items)
+        : base(new XElement(Xs.Sequence))
+    {
+        foreach (var xsObject in items)
+            Items.Add(xsObject);
+    }
 
-        private ICollection<XsObject> _items;
-        private static readonly IEnumerable<XName> _itemElementNames = new[] { Xs.Any, Xs.Choice, Xs.Sequence, Xs.Element, Xs.Group };
-        public override ICollection<XsObject> Items
+    private ICollection<XsObject> _items;
+    private static readonly IEnumerable<XName> _itemElementNames = new[] { Xs.Any, Xs.Choice, Xs.Sequence, Xs.Element, Xs.Group };
+    public override ICollection<XsObject> Items
+    {
+        get
         {
-            get
-            {
-                if (_items == null) _items = XsCollection.Create<XsObject>(this, _itemElementNames);
-                return _items;
-            }
+            if (_items == null) _items = XsCollection.Create<XsObject>(this, _itemElementNames);
+            return _items;
         }
     }
 }
