@@ -34,6 +34,28 @@ public class CacheTests
         Assert.False(Make("hello").Equals("hello"));
     }
 
+    [Fact]
+    public void EqualsObject_RawStringMatchingValue_ReturnsFalse()
+    {
+        // Cache<string> and string are different types; the value inside
+        // the cache should never be conflated with the cache itself.
+        var cache = Make("hello");
+        _ = cache.Value;
+        Assert.False(cache.Equals((object)"hello"));
+    }
+
+    [Fact]
+    public void EqualsObject_IncompatibleType_DoesNotForceValueCreation()
+    {
+        // Passing a non-Cache argument should short-circuit before ever
+        // touching Value — the cast to Cache<T> returns null, which the
+        // null-guard in Equals(Cache<T>?) catches without evaluating.
+        var cache = Make("hello");
+        Assert.False(cache.IsValueCreated);
+        Assert.False(cache.Equals((object)"hello"));
+        Assert.False(cache.IsValueCreated);
+    }
+
     // ── Value already created ─────────────────────────────────────────────
 
     [Fact]
