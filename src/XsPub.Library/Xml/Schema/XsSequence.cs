@@ -4,7 +4,7 @@ using XsPub.Library.Xml.Schema.Collections;
 
 namespace XsPub.Library.Xml.Schema;
 
-public class XsSequence : XsGroupBase
+public sealed class XsSequence : XsGroupBase
 {
     public XsSequence(XElement element) : base(element)
     {
