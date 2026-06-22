@@ -7,9 +7,9 @@ namespace Xsp;
 
 public class AgumentSetting
 {
-    public string TransformationName { get; set; }
-    public string SettingName { get; set; }
-    public string Value { get; set; }
+    public string? TransformationName { get; set; }
+    public string SettingName { get; set; } = string.Empty;
+    public string Value { get; set; } = string.Empty;
 }
 
 public class ArgumentParser
@@ -38,8 +38,8 @@ public class ArgumentParser
         }
     }
 
-    public string InputFile { get; private set; }
-    public string OutputPath { get; private set; }
+    public string InputFile { get; private set; } = string.Empty;
+    public string OutputPath { get; private set; } = string.Empty;
     public List<AgumentSetting> ArgumentSettings { get; private set; }
 
     public ArgumentParser(string[] args)

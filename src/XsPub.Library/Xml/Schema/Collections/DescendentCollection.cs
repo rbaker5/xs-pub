@@ -61,7 +61,7 @@ public class DescendentCollection<TItem> : IEnumerable<TItem>
     /// </summary>
     /// <param name="element"></param>
     /// <returns></returns>
-    protected XsObject CreateDeepSchemaObject(XElement element)
+    protected XsObject CreateDeepSchemaObject(XElement? element)
     {
         return XsObjectFactory.Create<XsObject>(element);
     }

@@ -84,8 +84,9 @@ internal class RedefineGlobalCollection<TOutput> : IGlobalNamedCollection<TOutpu
         /// true if the specified objects are equal; otherwise, false.
         /// </returns>
         /// <param name="x">The first object of type <typeparamref name="TOutput"/> to compare.</param><param name="y">The second object of type <typeparamref name="TOutput"/> to compare.</param>
-        public bool Equals(TOutput x, TOutput y)
+        public bool Equals(TOutput? x, TOutput? y)
         {
+            if (x is null || y is null) return x is null && y is null;
             return x.QualifiedName == y.QualifiedName;
         }
 
@@ -96,9 +97,9 @@ internal class RedefineGlobalCollection<TOutput> : IGlobalNamedCollection<TOutpu
         /// A hash code for the specified object.
         /// </returns>
         /// <param name="obj">The <see cref="T:System.Object"/> for which a hash code is to be returned.</param><exception cref="T:System.ArgumentNullException">The type of <paramref name="obj"/> is a reference type and <paramref name="obj"/> is null.</exception>
-        public int GetHashCode(TOutput obj)
+        public int GetHashCode(TOutput? obj)
         {
-            return obj.QualifiedName.GetHashCode();
+            return obj?.QualifiedName.GetHashCode() ?? 0;
         }
 
         #endregion

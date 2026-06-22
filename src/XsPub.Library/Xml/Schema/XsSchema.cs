@@ -184,7 +184,7 @@ public class XsSchema : XsObject
         }
     }
 
-    private void validationFailure(object sender, ValidationEventArgs e)
+    private void validationFailure(object? sender, ValidationEventArgs e)
     {
         throw new NotImplementedException();
     }

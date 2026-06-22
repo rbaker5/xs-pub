@@ -8,13 +8,13 @@ namespace XsPub.Library;
 public static class ObjectExtensions
 {
     public static TResult IfNotNull<TInput, TResult>(this TInput input, Func<TInput, TResult> actionIfNull, TResult defaultValue)
-        where TInput : class
+        where TInput : class?
     {
         return input == null ? defaultValue : actionIfNull(input);
     }
 
     public static TResult? IfNotNull<TInput, TResult>(this TInput input, Func<TInput, TResult> actionIfNull)
-        where TInput : class
+        where TInput : class?
     {
         return input == null ? default : actionIfNull(input);
     }

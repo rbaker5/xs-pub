@@ -13,6 +13,7 @@ namespace XsPub.Library.Utility;
 /// <typeparam name="TKey">The key type</typeparam>
 /// <typeparam name="TValue">The value type</typeparam>
 public class ConcurrentWeakRefDictionary<TKey, TValue> : IDictionary<TKey, TValue>
+    where TKey : notnull
 {
     private readonly ConcurrentDictionary<TKey, WeakReference> _inner = new ConcurrentDictionary<TKey, WeakReference>();
 

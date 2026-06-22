@@ -11,7 +11,6 @@ namespace XsPub.Library.Xml.Schema;
 public class NamespaceCollection : IEnumerable<XmlQualifiedName>
 {
     public XsObject Obj { get; private set; }
-    public event EventHandler<XObjectChangeEventArgs> Changed;
     private Lazy<Dictionary<string, XmlQualifiedName>> _namespaces;
 
     public NamespaceCollection(XsObject obj)
@@ -24,7 +23,7 @@ public class NamespaceCollection : IEnumerable<XmlQualifiedName>
         resetNamespaces();
     }
 
-    private void nodeChanged(object sender, XObjectChangeEventArgs e)
+    private void nodeChanged(object? sender, XObjectChangeEventArgs e)
     {
         var attribute = sender as XAttribute;
         // Skip descendents and non-attributes.

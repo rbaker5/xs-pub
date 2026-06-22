@@ -122,7 +122,7 @@ public class SettingSet : IList<ITransformationSetting>, IList
             {
                 setting.GetType().GetProperty("CurrentValue", valueType).SetValue(setting, Convert.ChangeType(propertyValue, valueType), null);
             }
-            catch (InvalidCastException e)
+            catch (InvalidCastException)
             {
                 throw new InvalidCastException(string.Format("Property {0} is of type {1}, and the value {2} could not be converted to a valid value.", propertyName, valueType, propertyValue));
             }
@@ -243,7 +243,7 @@ public class SettingSet : IList<ITransformationSetting>, IList
 
     #region IList Members
 
-    int IList.Add(object value)
+    int IList.Add(object? value)
     {
         throw new NotImplementedException();
     }
@@ -253,7 +253,7 @@ public class SettingSet : IList<ITransformationSetting>, IList
         Reset();
     }
 
-    bool IList.Contains(object value)
+    bool IList.Contains(object? value)
     {
         var setting = value as ITransformationSetting;
         if (setting == null)
@@ -262,7 +262,7 @@ public class SettingSet : IList<ITransformationSetting>, IList
         return IsValidSetting(setting.Name);
     }
 
-    int IList.IndexOf(object value)
+    int IList.IndexOf(object? value)
     {
         var setting = value as ITransformationSetting;
         if (setting == null)
@@ -271,7 +271,7 @@ public class SettingSet : IList<ITransformationSetting>, IList
         return _propertyValues.IndexOfKey(setting.Name);
     }
 
-    void IList.Insert(int index, object value)
+    void IList.Insert(int index, object? value)
     {
         throw new NotImplementedException();
     }
@@ -286,7 +286,7 @@ public class SettingSet : IList<ITransformationSetting>, IList
         get { return true; }
     }
 
-    void IList.Remove(object value)
+    void IList.Remove(object? value)
     {
         throw new NotImplementedException();
     }
@@ -296,7 +296,7 @@ public class SettingSet : IList<ITransformationSetting>, IList
         throw new NotImplementedException();
     }
 
-    object IList.this[int index]
+    object? IList.this[int index]
     {
         get
         {

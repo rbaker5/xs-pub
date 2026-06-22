@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.Serialization;
-using System.Security.Permissions;
 using System.Text;
 
 namespace XsPub.Library.Xml.Schema;
@@ -25,14 +23,6 @@ public class XsException : Exception
     public XsException(string message)
         : this(message, (Exception)null, 0, 0)
     {
-    }
-
-    protected XsException(SerializationInfo info, StreamingContext context)
-        : base(info, context)
-    {
-        SourceUri = (string)info.GetValue("sourceUri", typeof(string));
-        LineNumber = (int)info.GetValue("lineNumber", typeof(int));
-        LinePosition = (int)info.GetValue("linePosition", typeof(int));
     }
 
     public XsException(string message, Exception innerException)
@@ -67,15 +57,6 @@ public class XsException : Exception
         LineNumber = lineNumber;
         LinePosition = linePosition;
         SourceSchemaObject = source;
-    }
-
-    [SecurityPermission(SecurityAction.Demand, SerializationFormatter = true)]
-    public override void GetObjectData(SerializationInfo info, StreamingContext context)
-    {
-        base.GetObjectData(info, context);
-        info.AddValue("sourceUri", SourceUri);
-        info.AddValue("lineNumber", LineNumber);
-        info.AddValue("linePosition", LinePosition);
     }
 
     internal void SetSchemaObject(XsObject source)

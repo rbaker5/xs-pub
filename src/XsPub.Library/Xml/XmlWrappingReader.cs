@@ -42,7 +42,7 @@ public abstract class XmlWrappingReader : XmlReader, IXmlLineInfo
         return _baseReader.GetAttribute(name);
     }
 
-    public override string GetAttribute(string localName, string namespaceUri)
+    public override string? GetAttribute(string localName, string? namespaceUri)
     {
         return _baseReader.GetAttribute(localName, namespaceUri);
     }
@@ -68,7 +68,7 @@ public abstract class XmlWrappingReader : XmlReader, IXmlLineInfo
         return _baseReader.MoveToAttribute(name);
     }
 
-    public override bool MoveToAttribute(string localName, string namespaceUri)
+    public override bool MoveToAttribute(string localName, string? namespaceUri)
     {
         return _baseReader.MoveToAttribute(localName, namespaceUri);
     }
@@ -202,7 +202,7 @@ public abstract class XmlWrappingReader : XmlReader, IXmlLineInfo
         }
     }
 
-    public override string this[string name, string namespaceUri]
+    public override string? this[string name, string? namespaceUri]
     {
         get
         {

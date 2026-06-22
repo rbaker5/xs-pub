@@ -47,7 +47,7 @@ public abstract class XmlWrappingWriter : XmlWriter
         _baseWriter.WriteBase64(buffer, index, count);
     }
 
-    public override void WriteCData(string text)
+    public override void WriteCData(string? text)
     {
         _baseWriter.WriteCData(text);
     }
@@ -62,12 +62,12 @@ public abstract class XmlWrappingWriter : XmlWriter
         _baseWriter.WriteChars(buffer, index, count);
     }
 
-    public override void WriteComment(string text)
+    public override void WriteComment(string? text)
     {
         _baseWriter.WriteComment(text);
     }
 
-    public override void WriteDocType(string name, string pubid, string sysid, string subset)
+    public override void WriteDocType(string name, string? pubid, string? sysid, string? subset)
     {
         _baseWriter.WriteDocType(name, pubid, sysid, subset);
     }
@@ -97,7 +97,7 @@ public abstract class XmlWrappingWriter : XmlWriter
         _baseWriter.WriteFullEndElement();
     }
 
-    public override void WriteProcessingInstruction(string name, string text)
+    public override void WriteProcessingInstruction(string name, string? text)
     {
         _baseWriter.WriteProcessingInstruction(name, text);
     }
@@ -112,7 +112,7 @@ public abstract class XmlWrappingWriter : XmlWriter
         _baseWriter.WriteRaw(buffer, index, count);
     }
 
-    public override void WriteStartAttribute(string prefix, string localName, string ns)
+    public override void WriteStartAttribute(string? prefix, string localName, string? ns)
     {
         _baseWriter.WriteStartAttribute(prefix, localName, ns);
     }
@@ -127,12 +127,12 @@ public abstract class XmlWrappingWriter : XmlWriter
         _baseWriter.WriteStartDocument(standalone);
     }
 
-    public override void WriteStartElement(string prefix, string localName, string ns)
+    public override void WriteStartElement(string? prefix, string localName, string? ns)
     {
         _baseWriter.WriteStartElement(prefix, localName, ns);
     }
 
-    public override void WriteString(string text)
+    public override void WriteString(string? text)
     {
         _baseWriter.WriteString(text);
     }
@@ -182,12 +182,12 @@ public abstract class XmlWrappingWriter : XmlWriter
         _baseWriter.WriteValue(value);
     }
 
-    public override void WriteValue(string value)
+    public override void WriteValue(string? value)
     {
         _baseWriter.WriteValue(value);
     }
 
-    public override void WriteWhitespace(string ws)
+    public override void WriteWhitespace(string? ws)
     {
         _baseWriter.WriteWhitespace(ws);
     }
