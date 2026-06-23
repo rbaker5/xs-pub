@@ -140,10 +140,11 @@ public class PublishingRuntime
             if (schemaElement.GetDefaultNamespace() == XNamespace.None && wsdlDefaultNamespace != XNamespace.None)
                 schemaElement.SetAttributeValue("xmlns", wsdlDefaultNamespace);
 
-            foreach (var ns in namespaces.Where(ns => schemaElement.Attribute(XNamespace.Xmlns.GetName(ns.Prefix)) == null))
+            foreach (var ns in namespaces.Where(ns =>
+                schemaElement.Attribute(XNamespace.Xmlns.GetName(ns.Prefix)) == null &&
+                schemaUsesPrefix(schemaElement, ns.Prefix, ns.Name)))
             {
-                if (schemaUsesPrefix(schemaElement, ns.Prefix, ns.Name))
-                    schemaElement.SetAttributeValue(XNamespace.Xmlns.GetName(ns.Prefix), ns.Name);
+                schemaElement.SetAttributeValue(XNamespace.Xmlns.GetName(ns.Prefix), ns.Name);
             }
         }
     }
