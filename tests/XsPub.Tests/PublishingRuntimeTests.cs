@@ -146,6 +146,19 @@ public class PublishingRuntimeTests : IDisposable
         Assert.Null(schemaElement.Attribute(System.Xml.Linq.XNamespace.Xmlns + "unused"));
     }
 
+    [Fact]
+    public void Publish_WsdlWithPrefixSubstringOfUsedPrefix_DoesNotCopyToSchema()
+    {
+        // PrefixCopy.wsdl: definitions root declares xmlns:tn whose string value
+        // is a prefix of the used prefix "tns".  The schema contains type="tns:Foo"
+        // which starts with "tn" but not "tn:" — so xmlns:tn must not be copied.
+        // This guards against a StartsWith(prefix) check without the colon delimiter.
+        _runtimeNoFactories.Publish(TestFile("PrefixCopy.wsdl"), _outputDir);
+
+        var schemaElement = LoadOutputSchemaElement("PrefixCopy.wsdl");
+        Assert.Null(schemaElement.Attribute(System.Xml.Linq.XNamespace.Xmlns + "tn"));
+    }
+
     private System.Xml.Linq.XElement LoadOutputSchemaElement(string wsdlFileName)
     {
         var content = File.ReadAllText(Path.Join(_outputDir, wsdlFileName));

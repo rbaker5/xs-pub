@@ -103,6 +103,7 @@ internal static class XsA
     public static readonly XName MaxOccurs = "maxOccurs";
     public static readonly XName MinOccurs = "minOccurs";
     public static readonly XName ItemType = "itemType";
+    public static readonly XName MemberTypes = "memberTypes";
     public static readonly XName Base = "base";
     public static readonly XName Name = "name";
     public static readonly XName Namespace = "namespace";

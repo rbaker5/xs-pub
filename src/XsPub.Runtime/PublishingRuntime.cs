@@ -109,6 +109,21 @@ public class PublishingRuntime
             schemaRoot.ReplaceWith(schema.Element);
     }
 
+    private static readonly HashSet<XName> _qnameAttributes = new()
+    {
+        "type", "base", "ref", "substitutionGroup", "itemType", "memberTypes"
+    };
+
+    private static bool schemaUsesPrefix(XElement schemaElement, string prefix, string namespaceName)
+    {
+        if (schemaElement.Descendants().Any(e => e.Name.NamespaceName == namespaceName))
+            return true;
+        var colonPrefix = prefix + ":";
+        return schemaElement.Descendants().Attributes()
+            .Where(a => _qnameAttributes.Contains(a.Name))
+            .Any(a => a.Value.Split(' ').Any(part => part.StartsWith(colonPrefix, StringComparison.Ordinal)));
+    }
+
     private void copyPrefixes(IEnumerable<XElement> schemaElements, XDocument wsdlDocument)
     {
         ArgumentNullException.ThrowIfNull(schemaElements);
@@ -125,14 +140,9 @@ public class PublishingRuntime
             if (schemaElement.GetDefaultNamespace() == XNamespace.None && wsdlDefaultNamespace != XNamespace.None)
                 schemaElement.SetAttributeValue("xmlns", wsdlDefaultNamespace);
 
-            // TODO: Shouldn't copy all indiscriminately.  Idealy should inspect the entire schema element to see if they are used.  
-            // A little difficult because some (not all) attributes need to be inspected.
             foreach (var ns in namespaces.Where(ns => schemaElement.Attribute(XNamespace.Xmlns.GetName(ns.Prefix)) == null))
             {
-                var usesNamespace = schemaElement.Descendants().Any(element => element.Name.NamespaceName == ns.Name);
-                if (schemaElement.Descendants().Attributes().Any(attribute => attribute.Value.StartsWith(ns.Prefix)))
-                    usesNamespace = true;
-                if (usesNamespace)
+                if (schemaUsesPrefix(schemaElement, ns.Prefix, ns.Name))
                     schemaElement.SetAttributeValue(XNamespace.Xmlns.GetName(ns.Prefix), ns.Name);
             }
         }
