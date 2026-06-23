@@ -46,9 +46,8 @@ public static class XContainerExtension
             {
                 if (String.IsNullOrEmpty(node.ToString().Trim(' ', '\r', '\n', '\t')))
                     node.Remove();
-                else
+                else if (node is XText text)
                 {
-                    var text = node as XText;
                     var firstLineIndentation = "\n" + text.GetFirstLineIndentationText();
                     var newIndentation = "\n" + nodeIndentation + nodeIndentationString;
                     
