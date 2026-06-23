@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/"
+             xmlns:tns="http://example.com/tns"
+             xmlns:unused="http://example.com/unused"
+             targetNamespace="http://example.com/tns">
+  <types>
+    <!-- Schema does not explicitly declare xmlns:tns or xmlns:unused; both are
+         inherited from the definitions root.  copyPrefixes should propagate
+         xmlns:tns (used via type="tns:Foo") but not xmlns:unused (not referenced). -->
+    <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://example.com/tns">
+      <xs:element name="Root" type="tns:Foo"/>
+      <xs:complexType name="Foo"/>
+    </xs:schema>
+  </types>
+</definitions>
