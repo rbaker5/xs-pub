@@ -134,13 +134,12 @@ public class XsComplexType : XsType
         {
             if (ContentModel == null) return Particle ?? XsParticle.Empty;
             if (ContentModel is XsSimpleContent)
+                return null;
+            if (ContentModel is XsComplexContent cc)
             {
-
-            }
-            if (ContentModel is XsComplexContent)
-            {
-                //if (ContentModel.Content is XsComplexContentExtension) return XmlSchemaDerivationMethod.Extension;
-                //if (ContentModel.Content is XsComplexContentRestriction) return XmlSchemaDerivationMethod.Restriction;
+                var ext = cc.Content as XsComplexContentExtension;
+                var rst = cc.Content as XsComplexContentRestriction;
+                return ext?.Particle ?? rst?.Particle;
             }
             throw createUnsupportedContentModelException();
         }

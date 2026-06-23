@@ -212,6 +212,65 @@ public class XsComplexTypeTests
     }
 }
 
+// ── XsComplexType.ContentTypeParticle ────────────────────────────────────
+
+public class XsComplexTypeContentTypeParticleTests
+{
+    [Fact]
+    public void NoContentModel_ReturnsDirectParticle()
+    {
+        var t = new XsComplexType(new XElement(Xs.ComplexType));
+        var seq = new XElement(Xs.Sequence);
+        t.Element.Add(seq);
+        Assert.Same(t.Particle, t.ContentTypeParticle);
+    }
+
+    [Fact]
+    public void NoContentModel_NoParticle_ReturnsEmpty()
+    {
+        var t = new XsComplexType(new XElement(Xs.ComplexType));
+        Assert.Same(XsParticle.Empty, t.ContentTypeParticle);
+    }
+
+    [Fact]
+    public void SimpleContent_ReturnsNull()
+    {
+        var t = new XsComplexType(new XElement(Xs.ComplexType,
+            new XElement(Xs.SimpleContent,
+                new XElement(Xs.Extension, new XAttribute(XsA.Base, "xs:string")))));
+        Assert.Null(t.ContentTypeParticle);
+    }
+
+    [Fact]
+    public void ComplexContent_WithExtension_ReturnsExtensionParticle()
+    {
+        var seq = new XElement(Xs.Sequence);
+        var t = new XsComplexType(new XElement(Xs.ComplexType,
+            new XElement(Xs.ComplexContent,
+                new XElement(Xs.Extension, new XAttribute(XsA.Base, "xs:anyType"), seq))));
+        Assert.Equal(seq, t.ContentTypeParticle!.Element);
+    }
+
+    [Fact]
+    public void ComplexContent_WithRestriction_ReturnsRestrictionParticle()
+    {
+        var seq = new XElement(Xs.Sequence);
+        var t = new XsComplexType(new XElement(Xs.ComplexType,
+            new XElement(Xs.ComplexContent,
+                new XElement(Xs.Restriction, new XAttribute(XsA.Base, "xs:anyType"), seq))));
+        Assert.Equal(seq, t.ContentTypeParticle!.Element);
+    }
+
+    [Fact]
+    public void ComplexContent_NoParticle_ReturnsNull()
+    {
+        var t = new XsComplexType(new XElement(Xs.ComplexType,
+            new XElement(Xs.ComplexContent,
+                new XElement(Xs.Extension, new XAttribute(XsA.Base, "xs:anyType")))));
+        Assert.Null(t.ContentTypeParticle);
+    }
+}
+
 // ── XsAttribute property round-trips ─────────────────────────────────────
 
 public class XsAttributeTests
